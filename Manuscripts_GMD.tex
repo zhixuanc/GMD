@@ -365,7 +365,7 @@ One of the most commonly used models of artificial viscosity is:
 \end{equation}
 The coefficient $\nu$ is defined as:
 \begin{equation}
-\nu = \alpha \bar{h}_{ab} \bar{c}_{ab}
+\nu = \alpha \bar{h}_{ab} \bar{c}_{ab} \label{eq:def_nu_in_av}
 \end{equation}
 Where 
 \begin{align}
@@ -454,15 +454,11 @@ That is to say, the same density updating equation can be applied for both phase
 \end{figure}
 
 \subsection{Turbulence modeling with SPH}
-Typically, turbulence fluctuations in a volcanic column occurs at very different length scales, ranging from millimeters up to hundreds of meters. The entrainment of air and heat transfer are dominated by such turbulent fluctuations as turbulent exchange coefficients are several magnitudes larger than corresponding physical coefficients (molecular viscosity and heat conduction coefficient). One way to include enough turbulence in the model is to use the SPH-SPS (SPH sub-particle-scale) turbulence model. 
+Typically, turbulence fluctuations in a volcanic column occurs at very different length scales, ranging from millimeters up to hundreds of meters. The entrainment of air and heat transfer are dominated by such turbulent fluctuations as turbulent exchange coefficients are several magnitudes larger than corresponding physical exchange coefficients (molecular viscosity and heat conduction coefficient). One way to include enough turbulence in the model is to use the SPH-SPS (SPH sub-particle-scale) turbulence model. 
 Another way is to use fine enough resolution (namely, the direct numerical simulation method) at the expense of much higher computational cost which results from both increase in number of particles and decrease in time steps constrained by the CFL (Courant–Friedrichs–Lewy) condition. Here we choose the SPH-SPS method. Among existing SPH-SPS turbulence models \citep{holm1999fluctuation, monaghan2002sph, violeau2007numerical, monaghan2011turbulence}, we adopt a LANS type turbulence model, the $SPH-\varepsilon$ turbulence model \citep{monaghan2011turbulence}. However, the $SPH-\varepsilon$ turbulence model was proposed only for incompressible flow. In the following section, we will extend it for compressible flow. It is necessary to mention that all other existing SPH-SPS turbulence models \citep{holm1999fluctuation, monaghan2002sph, violeau2007numerical} also only focus on incompressible flow.
 
-%Even though free surface flow are in nature turbulent, detailed research on turbulence modeling in SPH method is rather scarce. Among the first papers on turbulence are the implementations of the $\alpha$ turbulence model \citep{holm1999fluctuation, monaghan2002sph} and the RANS (Reynolds averaged Navier-Stokes) approach \citep{violeau2007numerical}. The first wall-bounded LES (large eddy simulation) simulation with SPH was performed by \citet{issa2005numerical}. An improved version of $SPH-\alpha$ method  \citep{monaghan2002sph} is proposed by \citet{monaghan2011turbulence}, which we refer to as $SPH-\varepsilon$ method. We adopt $SPH-\varepsilon$ method in our model. Most of these papers constrain their focus to incompressible flow. 
-%$SPH-\alpha$ model \citep{monaghan2002sph} is a powerful extension of the XSPH algorithm which reduces disorder at short length scales and retains the constants of the motion. However, in that paper, energy conservation equation is discretized in a way that is exactly the same as usual SPH. There is no special treatment on energy conservation equation. The recent improved version \citep{monaghan2011turbulence} of $SPH-\alpha$ method focuses on incompressible flow only.
-% 
-
 \subsubsection{Langrangian average in $SPH-\varepsilon$}
-\citet{monaghan2011turbulence} constructed $SPH-\varepsilon$ turbulence model within the framework of SPH in such a way that general principles such as conservation of energy, momentum and circulation are satisfied using the ideas associated with the LANS turbulence modeling. The basic idea of $SPH-\varepsilon$ is to determine a smoothed (averaged) velocity $\widehat{\textbf{v}}$ by a linear operation on the unsmoothed velocity $\textbf{v}$. The SPH particles move with this smoothed velocity and hence the average motion of the fluid is determined by the averaged velocity $\widehat{\textbf{v}}$:
+\citet{monaghan2011turbulence} constructed the $SPH-\varepsilon$ turbulence model within the framework of SPH in such a way that general principles such as conservation of energy, momentum and circulation are satisfied using the ideas associated with the LANS turbulence modeling. The basic idea of $SPH-\varepsilon$ is to determine a smoothed (averaged) velocity $\widehat{\textbf{v}}$ by a linear operation on the unsmoothed velocity $\textbf{v}$. The SPH particles move with this smoothed velocity and hence the average motion of the fluid is determined by the averaged velocity $\widehat{\textbf{v}}$:
 \begin{equation}
 \dfrac{d \textbf{x}_a}{dt} = \widehat{\textbf{v}}_a \label{eq:gov-update-pos-turbulence}
 \end{equation}
@@ -480,7 +476,7 @@ Where $G$ satisfies:
 and is a member of a sequence of functions which tends to the $\delta$ function in the limit when $ l\rightarrow 0$. A typical example is Gaussian.
 The length scale $l$ determines the characteristic width of the kernel and the distance over which the velocity is smoothed.
 
-It is a common practice in LANS to use a differential equation for the smoothing rather than the integral form and finally reach to a system of equations that need to be solved implicitly. In $SPH-\varepsilon$ method, a XSPH \citep{monaghan1989problem} smoothing is adopted which conserves linear and angular momentum. In this way, solving of a system of equations is avoided and it also makes the method simple to implement and cheap for computation. 
+It is a common practice in LANS to use a differential equation for the smoothing rather than the integral form and finally reach to a system of equations that need to be solved implicitly. In $SPH-\varepsilon$ method, a XSPH \citep{monaghan1989problem} smoothing is adopted which conserves linear and angular momentum. In this way, solving of a system of equations is avoided and hence makes the method simple to implement and cheap for computation. 
 The discretized form of the momentum equation is obtained through lengthy derivation. Derivation and other discussions are available in the literature -- see for e.g. \citep{monaghan2011turbulence}. Here we provide a brief summary of key steps.
 
 The smoothing adopted by \citet{monaghan2011turbulence}  is:
@@ -496,7 +492,7 @@ By making the replacement:
 \label{eq:replacement-in-turb-derive}
 \dfrac{G\left(\vert \textbf{x} _b - \textbf{x} _a \vert, l\right)}{\rho _b} \rightarrow \dfrac{K_{ab}}{M}
 \end{equation}
-Where $K_{ab} = l^d G_{ab}$, $M = \rho_0 l^d$ in which $d$ is the dimension and $\rho_0$ is initial density. $SPH-\varepsilon$ turbulence model is obtained after lengthy derivation:
+Where $K_{ab} = l^d G_{ab}$, $M = \rho_b l^d$ in which $d$ is the dimension and $\rho_0$ is initial density. $SPH-\varepsilon$ turbulence model is obtained after lengthy derivation:
 \begin{equation}
 \label{eq:monaghan-mom-turb}
 \dfrac{d \textbf{v}_a}{dt} = -\sum_b \left[ m_b \left(\dfrac{p_b}{\rho_b^2} + \dfrac{p_a}{\rho_a^2}\right) \bigtriangledown_aw_{a b}\left(h\right)\right] + \sum_b m_b \dfrac{\varepsilon}{2} \dfrac{\textbf{v}_{ab} \cdot \textbf{v}_{ab}}{M} \bigtriangledown_a K_{ab}
@@ -520,7 +516,7 @@ where
 \end{equation}
 Which is the extra stress term induced by average. We take coefficient $\varepsilon$ as 0.8 following \citet{monaghan2011turbulence}.
 
-For compressible flow, the energy equation is coupled with the momentum equation and mass conservation equation. Averaging of thermal energy over space introduces some additional terms besides the stress term induced by velocity average. \citep{NASACompressibleTurbulence}. The averaged momentum equation for compressible flow are in the same form as that for incompressible flow, all of other additional terms, besides the corresponding velocity average induced stress term, show up in the energy equation. Most turbulence modeling focuses on the stress terms induced by average of velocity. These stress terms are usually either solved directly (for example, LANS methods) or defined via a constitutive relation (for example, large eddy simulation method). Less attention is typically given to the other terms. Most commonly, a Reynolds analogy is used to model the turbulent exchange. Simulations of heat transfer, or other scalar transfer, in turbulent flow simply involve adding transport terms for thermal energy or species concentration, at the expense of greater storage and longer computing times but without other difficulties \citep{cebeci2013analysis}. We adopt this strategy. %PDAC \citep{neri2003multiparticle} also adopted a Reynolds analogy in its turbulence modeling.
+For compressible flow, the energy conservation equation is coupled with the momentum conservation equation and mass conservation equation. Averaging of thermal energy over space introduces some additional terms besides the stress term induced by velocity average. \citep{NASACompressibleTurbulence}. The averaged momentum equation for compressible flow are in the same form as that for incompressible flow, all of other additional terms, besides the corresponding velocity average induced stress term, show up in the energy equation. Most turbulence modeling focuses on the stress terms induced by average of velocity. These stress terms are usually either solved directly (for example, LANS methods) or defined via a constitutive relation (for example, large eddy simulation method). Less attention is typically given to other terms. Most commonly, a Reynolds analogy is used to model the turbulent exchange. Simulations of heat transfer, or other scalar transfer due to turbulence simply involve adding transport terms for thermal energy or species concentration, at the expense of greater storage and longer computing times but without other difficulties \citep{cebeci2013analysis}. We adopt this strategy. %PDAC \citep{neri2003multiparticle} also adopted a Reynolds analogy in its turbulence modeling.
 The additional terms associated with molecular diffusion and turbulent transport in the energy equation are either modeled in different ways or neglected sometimes \citep{NASACompressibleTurbulence}. We neglect these terms in our simulation.
 
 \subsubsection{Turbulent heat transfer}
@@ -529,7 +525,7 @@ The Prandtl number is defined as:
 \begin{equation}
 Pr=\dfrac{C_p \mu}{\kappa}
 \end{equation}
-Where, $\mu$ is the dynamic viscosity, $\kappa$ is the thermal conductivity. And $\mu$  can be written in term of the absolute viscosity (kinematic viscosity) as:
+Where, $\mu$ is the dynamic viscosity, $\kappa$ is the thermal conductivity. And $\mu$  can be written in term of the absolute viscosity (kinematic viscosity).
 \begin{align}
 \mu=\rho \nu
 \end{align}
@@ -581,20 +577,20 @@ $\Upsilon_{ab}$ is essentially equivalent to the ratio between turbulent viscous
 &= \dfrac{\varepsilon \left(x_{ab}^2 + \eta^2 h_{ab}^2\right)}{2 S} \dfrac{\textbf{v}_{ab} \cdot \textbf{v}_{ab}}{\textbf{v}_{ab} \cdot \textbf{x}_{ab}}
 \end{split}
 \end{equation}
-The corresponding turbulent thermal conductivity should be
+Recall that in Eq. (\ref{eq:def_nu_in_av}), $\nu$ is scaled by $\bar{h}_{ab} \bar{c}_{ab}$. Then the corresponding turbulent thermal conductivity should be:
 \begin{equation}
-\kappa_{t,ab}=\dfrac{\varepsilon \overline{C_{p,ab}} \overline{\rho_{ab}} \left(x_{ab}^2 + \eta^2 h_{ab}^2\right) \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 S Pr_t\textbf{v}_{ab} \cdot \textbf{x}_{ab}}
+\kappa_{t,ab}=\dfrac{\varepsilon \bar{C}_{p,ab} \bar{\rho}_{ab} \left(x_{ab}^2 + \eta^2 h_{ab}^2\right) \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 S Pr_t \bar{h}_{ab} \bar{c}_{ab} \textbf{v}_{ab} \cdot \textbf{x}_{ab}}
 \end{equation}
-$\overline{C_{p,ab}}$ and $\overline{\rho_{ab}}$ are simply the arithmetic means of specific heat and density. The term used to prevent singularity now can be removed. 
+$\bar{C}_{p,ab}$ and $\bar{\rho}_{ab}$ are simply the arithmetic means of specific heat and density. The term used to prevent singularity can be removed. 
 \begin{equation}
-\kappa_{t,ab}=\dfrac{\varepsilon \overline{C_{p,ab}} \overline{\rho_{ab}} x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 S Pr_t\textbf{v}_{ab} \cdot \textbf{x}_{ab} }
+\kappa_{t,ab}=\dfrac{\varepsilon \bar{C}_{p,ab} \bar{\rho}_{ab} x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 S Pr_t \bar{h}_{ab} \bar{c}_{ab} \textbf{v}_{ab} \cdot \textbf{x}_{ab} }
 \end{equation}
-We also need to prevent singularity, so: 
+We also need to prevent singularity and guarantee positive conductivity coefficient, so: 
 \begin{equation}
 \kappa_{t,ab}= 
 \begin{cases} 
-      0 & if  \quad \textbf{v}_{ab}=0 \quad or \quad \textbf{x}_{ab}=0 \\
-      \dfrac{\varepsilon \overline{C_{p,ab}} \overline{\rho_{ab}} x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 S Pr_t\textbf{v}_{ab} \cdot \textbf{x}_{ab} } & \text{otherwise}
+      0 & if \quad \textbf{v}_{ab} \cdot \textbf{x}_{ab} \leq 0 \\
+      \dfrac{\varepsilon \bar{C}_{p,ab} \bar{\rho}_{ab} x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 S Pr_t \bar{h}_{ab} \bar{c}_{ab} \textbf{v}_{ab} \cdot \textbf{x}_{ab} } & \text{otherwise}
 \end{cases}
 \label{eq:SPH-LANS-heat-conductivity}
 \end{equation}
@@ -617,14 +613,14 @@ Plug the turbulent thermal conductivity into the heat conduction equation:
 \begin{split}
 C_p \dfrac{dT}{dt}
 & = \sum_b \dfrac{m_b}{\rho_a \rho_b} \left(\kappa_a + \kappa_b\right) \left(T_a - T_b\right) F_{ab} \left(h\right) \\
- &= 2 \sum_b \dfrac{m_b}{\rho_a \rho_b} \dfrac{\overline{C_{p,ab}} \overline{\rho_{ab}} \varepsilon x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{2 Pr_t  S \textbf{v}_{ab} \cdot \textbf{x}_{ab} } \left(T_a - T_b\right) F_{ab} \left(h\right)
+ &= 2 \sum_b \dfrac{m_b}{\rho_a \rho_b} \kappa_{t,ab} \left(T_a - T_b\right) F_{ab} \left(h\right)
 \end{split}
 \label{eq:turb-LANS-heat-conduct1}
 \end{equation}
 Notice that the number "2" in the front of Eq. (\ref{eq:turb-LANS-heat-conduct1}) comes from integration approximation of second order derivative \citep {cleary1999conduction}. By further simplification, we get:
 \begin{equation}
 C_p \dfrac{dT}{dt}
- =\dfrac{\varepsilon}{S  Pr_t}  \sum_b \dfrac{m_b}{\rho_a \rho_b} \dfrac{\overline{C_{p,ab}} \overline{\rho_{ab}} x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{\textbf{v}_{ab} \cdot \textbf{x}_{ab}} \left(T_a - T_b\right) F_{ab} \left(h\right)
+ =\dfrac{\varepsilon}{S  Pr_t}  \sum_b \dfrac{m_b}{\rho_a \rho_b} \dfrac{\bar{C}_{p,ab} \bar{\rho}_{ab} x_{ab}^2 \textbf{v}_{ab} \cdot \textbf{v}_{ab}}{\bar{h}_{ab} \bar{c}_{ab} \textbf{v}_{ab} \cdot \textbf{x}_{ab}} \left(T_a - T_b\right) F_{ab} \left(h\right)
 \end{equation}
 
 \subsubsection{Discretized governing equations with $SPH-\varepsilon$ turbulence model}
