@@ -1,0 +1,308 @@
+\documentclass[10pt,a4paper]{article}
+%\documentclass[10pt,a4paper]{beamer}
+\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{kpfonts}
+\usepackage[numbers]{natbib}
+%other options include: round, curly, angle, or default options
+
+\usepackage{media9}
+
+\author{\Large \textbf{by Zhixuan Cao et al.}}
+
+\title{ \Large{ Authors' reply to the comments by M. de’ Michieli Vitturi (Referee \#1) of the manuscript gmd-2017-119} \\
+\LARGE \textbf{“Plume-SPH 1.0: A three-dimensional, dusty-gas volcanic plume model based on smoothed particle hydrodynamics”}}
+
+\date{\vspace{-5ex}}
+
+\begin{document}
+\maketitle
+The comments by the reviewer are recited in italics, followed by our reply in upright font. Equation, section, and figure numbers that we refered in our response are corresponding to these in the original varsion of GMD discussion paper. \\[12pt]
+
+\textbf{\large General Comments}
+
+\textit{This paper presents an initial effort towards developing a plume model with comprehensive physics based on the smoothed particles hydrodynamics method. To my knowledge, this is the first numerical model of volcanic plumes adopting this technique and this is a good addition to the existing models. While the model, the derivation of the discretised equations and the computational techniques are satisfactory for a reader expert in SPH, a few more details would help in the comprehension other readers. The scientific content of the paper could be improved by a better and extended description of the applications. Overall, the manuscript represent a substantial contribution to modelling Âascience within the scope of Geoscientific Model Development and it is suitable for publication after some improvements and corrections are made. These are described below.} 
+
+We would like to thank the reviewer for carefully reading our manuscript and giving positive review and constructive remarks.
+We have revised the manuscript as shown in the supplemental PDF file, and we hope that we have dealt with all suggestions in an adequate manner. The revised manuscript is also attached.
+ 
+On behalf of all co-authors.
+
+The following are our response to reviewer's specific comments. Modifications are made accordingly in the manuscript. \\[12pt]
+
+\textbf{\large Specific comments}
+
+\textbf{Abstract}
+
+\textit{Line 8. What does dynamic and thermodynamic equilibrium with surrounding air mean? No relative velocity? Same temperature? I think it is an equilibrium between volcanic gas and particles.}
+
+Yes, dynamic equilibrium means same velocity while thermodynamic equilibrium means same temperature. We treat erupted material (includes volcanic gas and particles) as one phase, so assumption of dynamic equilibrium and thermodynamic equilibrium are made for erupted material. Such assumption is made implicitly when we assuming erupted material behaves like a single phase fluid.
+What we intended to say by "dynamic and thermodynamic equilibrium between air and erupted material" is actually "dynamic equilibrium and thermodynamic equilibrium between erupted material and air that is entrained into the plume". That is to say, we assume that surrounding air and erupted material will reach an equilibrium status (same velocity and temperature) as soon as they get mixed.
+ 
+We are aware of that the original statement is misleading and modified it as "dynamic equilibrium and thermodynamic equilibrium between erupted material and air that is entrained into the plume". We thanks reviewer for pointing this out. \\[3pt]
+
+\textit{Line 23. The model is not really compared with the top height of the Pinatubo eruption, because atmospheric conditions are changed from real ones (no wind in imposed,
+weak vs strong in Costa et al 2016); in addition, MER is fixed. So, it is more a comparison with results from other 3D models, for an eruption with the same MER estimated for Pinatubo 1991.}
+
+Thank you for your clarification on this. We revised original statement "The model is verified by comparing velocity and concentration distribution along the central axis and on the transverse cross with experimental results of JPUE (jet or plume that is ejected from a nozzle into a uniform environment) and the top height of the Pinatubo eruption of 15 June 1991." to "The code is first verified by 1D shock tube tests, then by comparing velocity and concentration distribution along the central axis and on the transverse
+cross with experimental results of JPUE (jet or plume that is ejected from a nozzle into a uniform environment). 
+%The model is validated by comparing against simulation results from other 3D plume models.
+Profiles of several integrated variables are compared with those calculated by existing 3D plume models for an eruption with the same MER (mass eruption rate) estimated for the Pinatubo eruption of June 15 1991. Our results are consistent with existing 3D plume models." \\[6pt]
+
+\textbf{Section 1.3}
+
+\textit{Page 4, lines 23-25. It is not clear to me why interface tracking or interface capturing are mentioned here for mesh based method. I think all the existing 3D Eulerian models (based on mesh based method) do not model the interface between the plume and the
+atmosphere. While I understand that this represent a big advantage for other applications of SPH, for example for dam-break problems, because it allows to solve only for the “flow” region and not for the surrounding, for a volcanic plume mixing between plume and air is important and I don’t really see a clear interface between them. Please clarify and expand the point.}
+
+We first thank reviewer for asking this question. This question pushed us to do more investigation on "interface construction" in mesh based methods. More importantly, we got an deeper understanding on why we need turbulence model in plume modeling. Our original motivation for using a turbulence model was simply based on the following logic: The Reynolds number is large enough hence the flow is turbulent, we can not resolve all turbulent exchange at all different scales with a coarse resolution, so we need turbulence model to resolve sub-particle scale turbulence. Now we can see the necessary of including a turbulence model in purpose of resolving mixing which happens in a much smaller scale.
+
+Because interface acts as portion of boundaries.
+It is critical to capturing or tracking the interface during simulation for immiscible flow. This is one of major motivations for using interface tracking and interface capturing method. However, this is not the case for volcanic plume modeling. As "fluids" in our plume model are miscible.
+ 
+Even though, clear transient interface do exist in miscible flow. There are experiments \citep {papantoniou1989large} showing clear interface between air and plume. Another experiment with higher resolution showing more detailed and more complicated interface by \citet{crimaldi2001high}. 
+It is through the interface (or boundary) where mxing happens. \citet{jacobson2008mixing} study detailed mixing mechanism at a flat interface.
+
+However, quantifying these mixing processes in real implementation is challenging because of the scale disparity between the large–scale fluid motion and the diffusion processes on interface that ultimately lead to mixing. The energy transfer between these scales occurs through turbulent motion, created either by fluid instabilities or by breaking internal waves. For shearing flow, like volcanic plume, the fluid instabilities dominated the mixing process. Ideally, one would like to be able to include the effects of mixing on the large scale dynamics without resolving the detailed interface structure and dynamics of turbulence to reduce computational cost. Such strategy was also used in all other mesh-based 3D plume models (though different turbulence closures were adopted by different models). 
+By resolving sub-particle scale (or sub-mesh scale) turbulent mixing with turbulence closure, relative coarse resolution is used in all 3D plume models (both particle based model and mesh-based models). Such solution is a trade-off between computational accuracy and computational cost. And in this case, interface might not be clearly observed in simulation due to coarse resolution. 
+
+Interface construction will become necessary and important when we attempt to include the effects of mixing by resolving the detailed interface structure and dynamics of turbulence. This option is not attractive at current stage of plume modeling as turbulence closure can give an acceptable accuracy with affordable computational cost.
+ 
+Remedies of standard SPH is needed if detailed mixing process needs to be resolved, for example \citep{cha2010kelvin, zhuimproved}.
+Remedies, such as adding of surface tension \citep{behjati2017modelling}, are needed for tracking interface while simulating immiscible flow using SPH. Even though, as a Lagrangian method, interface constructing is explicit through capturing of the locations of the particles and much simplier than Eulerian Methods.
+
+Modification in the manuscripts:
+1) Since the exact location of interface is less important for plume modeling when turbulence model is adopted, we changed this paragraph to: 
+"Interface tracking is explicit in SPH through capturing of the locations of the particles. Less numerical effort is required for interface construction when we attempt to include the effects of mixing by resolving the detailed interface structure and dynamics of turbulence." and put it as the last item among SPH features.
+2) Added a short paragraph (Basically the fourth paragraph of this response) at the beginning of section 3.8 explaining motivation of using turbulence model. 
+3) Changing the title of section 3.7 to "Mass fraction update". Re-organize this section and focus more on mass fraction updating. Make a brief remark on interface constructing using SPH and mesh-based methods at the end of this section. \\[6pt]
+
+\textbf{Section 3. SPH method}
+
+\textit{Sometime equation are referenced before they have been introduced. See for example lines 23 and 24 at page 10 where there is a reference to Eqs. 34 and 35, which are in introduced in the next subsection. Again, at page 10, sentence at lines 25-26 should be referred to the discretised version of the equations, while discretisation is presented later in the section. Page 11, line 1. It is written “region of compact support” before having stated the
+properties of the weighting function. Maybe add an equation that define this property: $w(x-xb,h) = 0 if |x-xb|>kh$ for some $k$, i.e. the support is proportional to the smoothing length. A suggestion. . . Probably the issues raised above could be solved moving the content of section 3.2 to section 3.1, after equation 26.} 
+
+As suggested by the reviewer, we reorganized the order of equations and merged section 3.1 and  section 3.2 into one section. We also put section for "Artificial visosity" before the section for "governing equation discretization". \\[6pt]
+ 
+\textbf{Section 3.3}
+
+\textit{Page 12, line 22. The “sink” term has been added to eq. 42, representing the discretised form of mixture equation. If the term is associated with a phase change, it would be better add it in the equation for a phase and not for the mixture with density $\rho$.}
+
+First of all we would like to calrify that the purpose of showing Eq. (42) ~ (44) is to show that only slight modifications is needed in discretized governing equations when new physics is considered. In addition, we do not have separate equation for mass conservation of volcanic gas (due to the assumption that erupted material behaves like a single phase). Appologize if reviewer has already been aware of this.
+
+We completely agree with the reviewer that for “sink” associated with phase change should be in the equation of the corresponding phase. For any future extending of current model, such as the example mentioned by the reviewer, considering phase change of volcanic gas, such sink term should be added to mass conservation equation of volcanic gas. The make the article more readable, we prefer to avoiding discussing new physics models, which is easily understandable for readers working on plume modeling but might cause confusion for readers without such background.
+%To avoid confusing readers, we emphasized at the end of section 3.3:  “Eq. (42) - Eq. (44) show examples of adding more physics into SPH model based on Euler equations to show easy extensibility of SPH models. The mass source (and sink), drag force effect, and heat exchange effect are not actually added to our model (Eq. (1) - (4)) "
+\\[3pt]
+
+\textit {Page 12, lines 24-25. “ The drag force term should show up only when dynamics disequilibrium between different phases is considered”. In this case is the summation in the last term of eq. 43 only extended to particles of a different phase?}
+
+The purpose of showing Eq. (43)  is to show that only slight modifications is needed in discretized governing equations when new physics (drag force term) is considered. The drag force term is not considered in current model, as we treat erupted material as one phase and assume immediate dynamic equilibrium between entrained air and erupted material. 
+So dynamics disequilibrium between different phases (for example, solid particles of different size and volcanic gas) are currently not considered in the model.
+
+If such disequilibrium need to be considered in future extension of current model, drag force effect should be considered. How many drag force effects should be considered depends on new assumptions and the new physics model. For example, if the physics model is a four phases model, one phase for atmosphere air, one phase for volcanic gas, one phase for large size solid particles and another for small size ash (maybe immediate equilibrium assumption between air and gas should be made). Drag effects between gas (air) and particles should be considered. But there should be no drag force term within gas phase itself. As for the small size ash, we can assume them behaves like single phase fluid (possibly not a reasonable assumption) then there should not drag force effect within the ash phase. Otherwise. drag effect within fine ash phase need to be considered.
+
+We changed the original sentence “The drag force term should show up only when dynamics disequilibrium between different phases is considered” to “The drag force term should show up when dynamics disequilibrium between different phases is considered”. By deleting the word “only”, we change original necessary and sufficient statement to a sufficient statement. \\[6pt]
+
+\textbf{Section 3.4}
+
+\textit{Page 13, line 5. Please define “particle disorder”.}
+
+We replaced “particle disorder” with “irregular distribution of particles” \\[6pt]
+
+\textbf{Section 3.5}
+
+\textit{Page 14, line 5. how sound speed of a particle is defined for the gas-solid mixture? Please add an equation}
+
+It is calculated by $c=(gamma_m* \frac{p}{/rho•} )^0.5$, we added an equation in our manuscript.  \\[3pt]
+
+\textit{Page 14, line 5. What is the order of magnitude of the time step for the tests presented, with a fully explicit scheme?}
+
+I am supposing that you are asking about how much is each time step.
+
+It depends on many factors: the value of smoothing length, particle mass, CFL number et al.. Time step also changes during simulation. For the simulation of Pinatubo eruption in this paper ($CFL=0.2$ was used, smoothing length is $170m$),  The time step is around 0.01s. \\[6pt]
+
+\textbf{Section 3.6}
+
+\textit{Page 14, line 8. “The classical SPH method was known to suffer from tensile instability and boundary deficiency.” Please describe there problems with some example, in order
+to help the readers not expert in SPH.}
+
+We added explanations and references on tensile instability: "Tests of the standard SPH method indicate an instability in the tensile regime, while the calculations are stable in compression.  A simplest example of such test calculation exhibiting the instability involves a body which is subjected to an uniform initial stress, either compressive or tensile. If the initial stress is tensile, a very small velocity perturbation on a single particle can lead to particles clumping together, forming large voids and seriously corrupting density distribution. But if the initial stress is compressive, the small velocity perturbation on a single particle can not lead to any changes in particle distribution. See paper by \citet{swegle1995smoothed} for more details." \\[3pt] 
+
+\textit{Page 14, line 14. “Equation (55) implies that $. . ..=1$”. Why? It is not equation 55 which implies the term is equal to 1, but the properties of the kernel. Furthermore, this is
+true for the integral (not discretised) formulation, and only for points far away from the boundary (see Chen et al., 1999).}
+
+The sentence is a misleading expression. Sorry for that. Here is the logic behind: The new approximation of function $A$, Eq. (55), should be consistent with original formulation, Eq. (28). Compare Eq. (55) and Eq. (28), if the denominator is 1, then these two equations will be the same. so it implies that the denominator in Eq. (55) should be close to 1. 
+We completely agree with you that the normalization condition originally come from definition of kernel. By the statement "implies that $...=1$" we were actually trying to show kind of consistent connection between this new approximation formulation and property of kernel function. In other words, in the derivation based on Taylor series expansion, we never take the property of kernel into account but finally reach to an equation that consistent with one property of kernel function.
+
+In addition, the summation (Eq. (28)) is usually a good approximation of integration in the area far away from boundaries. Hence the denominator in Eq. (55) is close to 1. it has ignorable effect on evaluating of $A_a$. That is to say, Eq. (55) and Eq. (28) are the same for particles far away from boundaries. But for particles close to boundaries, the denominator will definitely not be close to 1. For these cases, the non-unit denominator helps normalize the summation and overcomes boundary deficiency.
+
+We changed the original sentence "Equation (55) implies that $\sum_b	m_b \rho_b w (x-x_b, h) = 1$ , which can be viewed as the approximation form of Eq. (34)." to  "Notice that the denominator in Eq. (55) is actually summation approximation of Eq. (34). That is to say, Eq. (55) and Eq. (28) are the same for particles far away from boundaries as the denominator in Eq. (55) becomes $1$ in that case." \\[6pt]
+
+\textbf{Section 3.7}
+
+\textit{Page 14, line 21-22. “Numerical simulation of multiphase flows is usually difficult due to the existence of complex evolving interfaces between phases.”
+This is true when the different phases are immiscible. But in the application investigated, the volcanic plume, phases are not immiscible and mixing is very important. So, there is no need to track the interface between phases Eulerian grid-based numerical methods. Conversely, standard formulations of SPH cannot resolve fluid mixing and instabilities at flow boundaries. IT should be discussed in the paper if, and how, this is has been addressed in the model presented. Please take a look at: J. I. Read, T. Hayfield, O. Agertz; Resolving mixing in smoothed particle hydrodynamics, Monthly Notices of the Royal Astronomical Society, Volume 405, Issue 3, 1 July 2010, Pages 1513–1530}
+
+As we have mentioned in our response to reviewer's previous question regarding interface capturing/tracking in SPH, interface construction will become necessary and important when we attempt to include the effects of mixing by resolving the detailed interface structure and dynamics of turbulence. This option is not attractive at current stage of plume modeling as turbulence closure can give an acceptable accuracy with affordable computational cost.
+
+The following is our response to reviewer's concern on how did we handle the issue of classical SPH: "Classical SPH has problems correctly integrating fluid instabilities and mixing at boundaries". I will call it "mixing challenge" in later paragraph for short.
+
+We were not aware of Read's paper previously. But we adopted several techniques (corrected formulation for tensile instability issue, smaller artificial viscosity coefficients, turbulence model with heat transfer considered) that probably have similar affect as the methods proposed in Read's paper. In Read's paper, one of his remedies of SPH is based on fixing the clumping instability which is actually tensile instability. We just adopted a different method (Chen's method) to handle this issue.
+
+In addition, before we adopting the turbulence model, we got a "mushroom like" plume and almost no mixing happened (exactly due to the "mixing challenge"). The simulation results became much more realistic after adding turbulence model. So the turbulence model helped us to resolve sub-particle scale mixing. As has been mentioned, it is a common practice in CFD to adopt turbulence closure to resolve instabilities (which dominate the mixing process for shearing flow).
+
+\citet{agertz2007fundamental} did a Kelvin-Helmholtz (KH) test showing that using smaller artificial viscosity coefficient can help get more mixing (Fig. 15 and discussion in Section 6.1 in his paper). In our model we also use a much smaller artificial viscosity (See the last paragraph in section 3.4, we use $\alpha =0.3$, while traditionally $\alpha$ is taken as 1, our original motivation was to avoid excessive artificial viscosity).
+
+\citet{price2008modelling} believes that the mixing issue is due to the fact that entropy is discontinuous at the boundaries while density is continuous. He found that adding thermal conductivity at boundaries can improve mixing in SPH as thermal conductivity can smooth the entropy. The thermal conductivity (heat transfer) due to turbulence is considered in our model. What's more the thermal conductivity coefficient is much larger at the interfaces due to large shearing effect at the interface. Which can definitely help to releive the "mixing challenge" if Price is correct. Of course, we were not motivated by Price's paper to adding a turbulent heat transfer term into our model. It is natural to have a turbulent heat transfer term for compressible flow in which energy conservation equation is coupled with momentum conservation and mass conservation equation. As you can see we actually and luckly "adopted" Price's method.
+
+\citet{wadsley2008treatment} and \citet{ritchie2001multiphase} made similar argument as Price. \citet{borgani2012hydrodynamic} believes that the "mixing challenge" of SPH is due to its poor ability of capturing contact discontinuity. They show that using GSPH can avoid appearance of spurious pressure force and help to to follow the kelvin instability.
+
+Since people still have different opinions on the sources of "mixing issue", it would be interesting to see the connections between these different opinions. But such work is obviously out of our topic in this paper. These remedies of traditional SPH we adopted and extended in our model helped us to overcome, at least relieve the "mixing challenge".
+
+At the end, we would thank reviewer for asking this critical question and pointing out other possible ways for remedying traditional SPH.\\[6pt]
+
+\textbf{Section 3.8.1}
+
+\textit{Page 16, line 10. For a reader like me who is more familiar with Eulerian and meshbased formulation, it would be good to state at the beginning that, differently from RANS (Reynolds Averaged Navier-Stokes) equations, which are time-averaged equations of motion, here the Lagrangian average is in space and not in time.}
+
+Thank you for your suggestion for improving readability of the article. We totally agree with you and have made revision as you suggested. \\[6pt]
+
+\textbf{Section 3.8.2}
+
+\textit{Page 20, line 8. Is this equation the definition of $F_{ab}$ or a property? If this is the definition, where is the argument of the function $F$?}
+
+It is the definition of $F_{ab}$. By the way, $F_{ab}(h)$ is short for $F(\textbf{x}_a -\textbf{x}_b, h)$, we added clarification in our revised manuscript. \\[6pt]
+
+\textbf{Section 3.9.1 Wall boundary condition}
+
+\textit{Please discuss the limitation of this approach when a complex topography is considered.
+In particular, how could you deal with convex geometries?}
+
+In our current model, the ground is assumed to be a flat ground. Since the topography is pretty simple, we did not experience any trouble. it has been shown in some other papers that it works as well for more complex topography \citep{kumar2013parallel}. One potential issue for complicated topography might be deployment of wall ghost particles. For flat boundary, we simply deploy several layers of ghost particles with equal interval and each ghost particle has the same mass. It has not been investigated yet how different deployment of wall ghost particle will influence the accuracy of imposed boundary conditions. A more basic question is how many degree of freedom should we allow for ghost particle deployment: only allows changing of particle position? Or allows using different particle mass size?
+
+For non-collapse plume, the flat ground assumption made in our current model should be good enough. For other phenomena, such as PDCs, a more realistic topography is required. As we mentioned in the manuscripts, current plume models are still not comprehensive enough, each model has its own problem of interest and assumptions were made accordingly. Fortunately, we’ve been seeing efforts on making these models to be more general. As the first trial of using SPH in plume modeling, we prefer to narrowing down the problem of interesting and focus on more fundamental aspects.
+ 
+We appreciate such discussion proposed by the reviewer which are constructive for future model improvement. \\[6pt]
+
+\textbf{Section 3.9.3}
+
+\textit{Keeping the pressure constant at atmospheric boundary can represent a problem when particles exit from the domain and choosing a larger computational domain cannot be the solution for long simulations. A better way to implement the boundary conditions at the exit would be to impose a condition on the total pressure ($p_{\rho}-0.5 \rho u^2$, where $p_{rho}=p-\rho g h$). This allow to have pressure changes at the boundaries associated with outflow.}
+
+I have two questions regarding your suggestion: 
+1) When we assign pressure value to these static pressure ghost particles, the decrease of pressure due to increase of height ($h$) has already been took into account. That is to say, pressure of our pressure ghost particles is consistent with meteorological data when establishing the initial condition. I am wondering should I still deduce $\rho g h$ from pressure?  
+2) Should the total pressure equals to a pressure \textbf{plus} kinetic energy, or minus kinetic energy? I have similar question for definition of $p_{\rho}$. Should $\rho g h$ been added to or deduced from pressure? Because total pressure in other fields, such as thermal dynamic analysis of flowing process in engines are definied as pressure plus kinetic energy. Just to make sure.
+
+In our current model, pressure ghost particles are assumed to be stationary. It does not make difference whether we use pressure or total pressure since velocity of pressure ghost particles are zero. The next important improvement of our current model under planning is taking the effect of wind field into account. In that case, the pressure ghost particles will not be static any more. The idea of using total pressure can be naturally implemented for that case. Thank you very much for pointing out an potential way for improving pressure outlet boundary condition. \\[6pt]
+
+\textbf{Section 4. Verification and validation}
+
+\textit{deals with the numerical resolution of the equations of the model, not with the agreement between the model and reality. It checks no code errors have been introduced
+in the code and one way to do it is a comparison with analytical solutions. I think it is better to simply rename the section "Applications” or “Results”.}
+
+Since JPUE is not the phenomena that we are targeted to model. So that is not validation (validation is to make sure assumptions in physics model is consistent with reality). Meanwhile, we compared our results against experimental results. We might call such comparison (simulation against measurements) as verification in a more general sense (?). 
+
+We added simulation results of shock tube tests which were compared against analytic solutions. By adding such real verification tests, we keep the title of this section unchanged.
+\\[6pt]
+
+\textbf{Section 4.1}
+
+\textit{Page 25, line 24. Please look also at the results from this paper: Ezzamel, Adam, Pietro Salizzoni, and Gary R. Hunt. "Dynamical variability of axisymmetric
+buoyant plumes." Journal of Fluid Mechanics 765 (2015): 576-611.}
+
+Thank you for pointing out a source for accessing more recent experimental results. We’ve added the paper in the reference. \citet{ezzamel2015dynamical} did not provide coefficients of their fit equations. So we did not add plots corresponding to  Ezzamel's results in our figures. \\[3pt]
+
+\textit{Page 26. Please put figure 6 and 7 together as to subplots
+Page 26, line 12. The expression for the Gaussian profile should be written as an equation (on a single line and numbered) and the terms should be defined after it is introduced, before writing the expression for the straight line. Page 27. Please put figure 8 and 9 together as to subplots Page 28, line 1. Please write the straight line expression as an equation on a single line.}
+
+We revised manuscripts as your suggestions for Fig. 6 - Fig. 9 \\[3pt]
+
+\textit{Page 28, lines 8-9. “results, a small disparity in both velocity and concentration are observed near the boundary of the jet.” Looking at figure 10, it seems that near the boundary of the jet there are regions without particles, and this could be the reason of the differences with experimental results. The emptying of particles in region with steep density gradients is described in section 3.4 of this paper: Ritchie, Benedict W., and Peter A. Thomas. "Multiphase smoothed-particle hydrodynamics."
+Monthly Notices of the Royal Astronomical Society 323.3 (2001): 743-756. Look for example at their figure 9.}
+
+Thank you very much for pointing this out. The low particle density (or the emptying of particles as what you call it) near the vent should be at least one reason of the disparity. We added an explanation of the disparity based on that paper. 
+
+Ritchie’s paper proposed two remedies of standard SPH: 1) Keep a density-weighted quantity constant. This might prevent the smoothing length changing in a proper way. One potential issue with such method is that there is no guarantee on enough number of neighbor particles when cavity forms in the fluid field. Probably his method could help us cure the disparity but might also introduce other problems. 2) The second remedy he proposed is assuming a constant pressure within the kernel (not sure whether such assumption can reflect real physics or not). The density is then updated based on equation of state. One good property of density updating equation in standard SPH that adopted in our model is that the total mass is strictly conserved. All other alternative methods for density updating, for example, density updating based on mass conservation PDE, are not able to be not able to guarantee strict conservation of total mass. I did not see any investigation in that paper about how well does his method conserve mass.
+
+Quite a lot variations of SPH has been proposed since its born. Each has advantages and disadvantages. Making a proper trade-off is one of the challenging thing for implementing SPH in simulating of complicated phenomena. And this is actually where we spent a lot of effort. Our choice were made either based on our preference (for example, we prefer strict conservation of mass, momentum and energy) or relevance of test simulations shown in thoese papers. 
+
+We thank the reviewer for proposing such discussion. \\[3pt]
+
+\textit{Page 28. End of section. The paper presents also details about the numerical implementation and the parallelisation of the code, so it would be interesting to have more info for this test about computational cost, number of particles, core/cpu used, …}
+
+The performance benchmark results are reported in 3.10. More Details has been published in another paper \citep{cao2017data}. We added the reference in section 3.10.
+
+The performace bechmarking should be done exclusively while computational nodes are usually shared among users when doing daily simulation. The difference between exclusive testing and no-exclusive testing might be large. That's why we put performace testing in a separate section and did not mention any thing, like total simulation time, in this section.
+\\[6pt] 
+
+\textbf{Section 4.2.1}
+
+\textit{ Page 29, lines 7-8. From Costa et al. 2016 "For the erupted particles, only two size classes were considered, representing coarse ash ($\Phi c$) and fine ash ($\Phi f$), each comprising 50 wt. $\&$ of the erupted particles " Here I cannot find any info about particles ...}
+
+We treat all erupted material including particles of different size and volcanic gas as a single phase. So our model is not able to make use of such detailed information. In our model, only the mass fraction of total solid particles is used, and dose not treat particles of different size separately. That's why we did not mention anything about detailed particle size distribution in the input parameter.
+ 
+Details about assumptions on which our model relies can be found in section 2. These assumptions are also briefly summarized in abstract. To avoid confusing readers, we added emphasize on which portion of Costa’s data are used in our simulation. \\[3pt]
+
+\textit{Page 29, line 13. In Fig. 1B it is plotted the meteo profile where it is also shown the presence of wind. Please clarify.}
+
+We use a static pressure boundary condition (pressure ghost particles have zero velocity) and do not consider the effect of wind field. Even though wind field data and specific humidity are also in that Fig. 1B in \citet{costa2016results}, we only used density, temperature and pressure but did not use wind velocity and specific humidity in our simulation. 
+We added clarifications on this in the revised manuscripts. \\[3pt]
+
+\textit{Page 30. Why there are no figures showing a 2d section of the plume, as done for the previous test? It would be interesting to see a vertical section of some variables (for example instantaneous value of mixture velocity modulus) and velocity streamlines, as shown in Cerminara et al.}
+
+Visualization of the simulated plume is added.
+
+\textit{Page 30, line 1. The averaging technique of Cerminara et al. is defined for grid-based eulerian models. It would be interesting to know the details of the implementation of the technique for the SPH code (perhaps in an appendix).}
+\textit{Page 30, lines 1-4. “ As particles distribute in a disordered manner in the space in SPH simulation results. We first project simulation results (on disordered particles) onto a pre-defined grid before doing time average and spatial integration. The project method is the basic SPH kernel based interpolation.” These lines are confused, please check.}
+
+For these two questions above. We added an appendix describing the posting process in detail. Then we replaced the sentence “ As particles distribute in a disordered manner in the space in SPH
+simulation results. We first project simulation results (on disordered particles) onto a pre-defined grid before doing time average and spatial integration. The project method is the basic SPH kernel based interpolation.”  with “As particles distribute irregularly in the space in SPH simulation results. We need to project simulation results (on irregular particles) onto a pre-defined grid before doing time average and spatial integration. See appendix A for more details of post processing."\\[3pt]
+
+\textit{Page 30, line 11. Eq. 95 is referenced here, so it should be written immediately after this sentence.}
+
+Yes, we adjusted the position of the equation and other two equations.\\[3pt]
+
+\textit{Page 32, end of section. In this section it would be good to have more details on the simulation (number of particles, computational cost, number of cores/cpu), and also to make a comparison with the other models regarding the time needed for a simulation.}
+
+%The computational efficiency of our current model is OK for plume simulation but too slow for multiple scale problem simulation, such as simulating of plume raising up combined with umbrellas spreading of volcanic ash in one run. The length scale and time scale of umbrella spreading of volcanic ash is much larger than the raising up of volcanic plume. If the spatial resolution can be adjusted adaptively, the computational efficiency could be increased a lot. In addition, if different time step can be used for different stages (the raising up stage and the spreading stage), the computational efficiency would be increased further. However, as far as I can see, such method would cause some challenges for parallelism. The dispersion and dissipation of volcanic ash in a regional (or even global) atmosphere has another level of length scale and time scale, and hence are not suitable for current model. All these challenges need to be addressed with more careful and solid work.
+
+Performance bechmarking of our solver is repoorted in section 3.10. More details has been published in a separate paper. We added an reference to paper.  As the simulation of Pinatubo reported here was done on computational cluster on CCR in a " \textbf{no-exclusive}" manner, the computational performance given by statement like "spend XXX hours on XXX cpus" might be misleading. 
+
+To give an intuitive impression on the "computational performance" of our solver: it took around 12 days on 240 cores for the Pinatubo simulation. The smoothing length is 170m, $CLF=0.2$, the total duration of simulation is 550 s after eruption. The size of computational domain is $[-40800, 40800] \times [-40800, 40800] \times [1500, 55000] $;
+%Even though, we added a paragraph briefly describing the total simulation time that we spend on this volcanic plume simulation.
+
+A comparison between all existing 3D models in terms of computational cost would be interesting. 
+considering many factors could influence the total simulation time, such as resolution, size of the computational domain, duration of simulation, type of hardwares on which the simulation is done, number of CPUs, et al, more careful benchmark testing are required for doing good comparison.
+\\[12pt] 
+
+%Another question is: for models adopting higher order methods, they can get as good solution as these model using lower order method, with a lower resolution. It is "not fair" to ask model using higher order method to have the same resolution as models using lower order method. 
+
+\textbf{\large Technical corrections}
+
+\textit{See pdf attached. Please also note the supplement to this comment: https://www.geosci-model-dev-discuss.net/gmd-2017-119/gmd-2017-119-RC1-supplement.pdf}
+
+Other revisions related to languages and typos have been made according to reviewer's suggestions in the supplement PDF that he attached.
+
+The only one suggestion that we did not follow is his suggestion for replacing "heat" with "positive buoyancy". on page 6 line 24. 
+The reason for using "heat" here is: Since the erupted material are hot, they keep heating up entrained air until its heat exhausts. And due to such heating up process, the plume can keep expanding and reducing its bulk density and keep a positive buoyancy. 
+So we prefer to use "heat" here.
+ We are definitely open and happy to discuss with reviewers about which word is more proper.
+ 
+We thanks him again for his careful reading and constructive comments.\\[12pt]
+
+\textbf{\large Major adjustments of the manuscripts}
+
+Here is a summary on major adjustments made in the revised manuscript: 
+\begin{itemize}
+\item In section 3, moved contents in section 3.2 right behind Eq. (26) and merged section 3.1 and 3.2  into one section. Moved section 3.4 before 3.3. Changed the tile of section 3.7 and adjusted the content in that section.
+\item Added a new section in section 4 showing some 1D shock tube tests against analytical results.
+\item In section 4, added 4 figures showing mass fraction and velocity of simulated volcanic plume.
+\item Added an Appendix on post processing of SPH simulation results.
+\end{itemize}
+
+\bibliographystyle{plainnat}
+\bibliography{Reference}
+\end{document}
