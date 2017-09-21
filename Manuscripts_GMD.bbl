@@ -1,4 +1,4 @@
-\begin{thebibliography}{82}
+\begin{thebibliography}{81}
 \providecommand{\natexlab}[1]{#1}
 \providecommand{\url}[1]{{\tt #1}}
 \providecommand{\urlprefix}{URL }
@@ -25,6 +25,12 @@ Biswas, R. and Oliker, L.: Experiments with repartitioning and load balancing
 \bibitem[{Bursik(2001)}]{bursik2001effect}
 Bursik, M.: Effect of wind on the rise height of volcanic plumes, Geophys. Res.
   Lett, 28, 3621--3624, 2001.
+
+\bibitem[{Bursik et~al.(2003)Bursik, Mart{\i}nez-Hackert, Delgado, and
+  Gonzalez-Huesca}]{bursik2003smoothed}
+Bursik, M., Mart{\i}nez-Hackert, B., Delgado, H., and Gonzalez-Huesca, A.: A
+  smoothed-particle hydrodynamic automaton of landform degradation by overland
+  flow, Geomorphology, 53, 25--44, 2003.
 
 \bibitem[{Bursik(2010)}]{267}
 Bursik, M.~I.: bent: A model of plumes in crossflow,
@@ -59,9 +65,10 @@ Cerminara, M., Ongaro, T.~E., and Berselli, L.: ASHEE-1.0: a compressible,
 
 \bibitem[{Cerminara et~al.(2016{\natexlab{b}})Cerminara, Ongaro, and
   Neri}]{cerminara2016large}
-Cerminara, M., Ongaro, T.~E., and Neri, A.: Large Eddy Simulation of
+Cerminara, M., Ongaro, T.~E., and Neri, A.: Large eddy simulation of
   gas--particle kinematic decoupling and turbulent entrainment in volcanic
-  plumes, Journal of Volcanology and Geothermal Research, 2016{\natexlab{b}}.
+  plumes, Journal of Volcanology and Geothermal Research, 326, 143--171,
+  2016{\natexlab{b}}.
 
 \bibitem[{Chen et~al.(1999)Chen, Beraun, and Jih}]{chen1999improvement}
 Chen, J., Beraun, J., and Jih, C.: An improvement for tensile instability in
@@ -90,6 +97,21 @@ Crespo, A., Dom{\'\i}nguez, J., Rogers, B., G{\'o}mez-Gesteira, M., Longshaw,
   S., Canelas, R., Vacondio, R., Barreiro, A., and Garc{\'\i}a-Feal, O.:
   DualSPHysics: Open-source parallel CFD solver based on Smoothed Particle
   Hydrodynamics (SPH), Computer Physics Communications, 187, 204--216, 2015.
+
+\bibitem[{Degruyter and Bonadonna(2012)}]{degruyter2012improving}
+Degruyter, W. and Bonadonna, C.: Improving on mass flow rate estimates of
+  volcanic eruptions, Geophysical Research Letters, 39, 2012.
+
+\bibitem[{de'Michieli Vitturi et~al.(2015)de'Michieli Vitturi, Neri, and
+  Barsotti}]{de2015plume}
+de'Michieli Vitturi, M., Neri, A., and Barsotti, S.: PLUME-MoM 1.0: A new
+  integral model of volcanic plumes based on the method of moments,
+  Geoscientific Model Development, 8, 2447--2463, 2015.
+
+\bibitem[{Devenish(2013)}]{devenish2013using}
+Devenish, B.: Using simple plume models to refine the source mass flux of
+  volcanic eruptions according to atmospheric conditions, Journal of
+  Volcanology and Geothermal Research, 256, 118--127, 2013.
 
 \bibitem[{Dimotakis et~al.(1983)Dimotakis, Miake-Lye, and
   Papantoniou}]{dimotakis1983structure}
@@ -139,10 +161,22 @@ Gopala, V.~R. and van Wachem, B.~G.: Volume of fluid methods for
   immiscible-fluid and free-surface flows, Chemical Engineering Journal, 141,
   204--221, 2008.
 
+\bibitem[{Haddad et~al.(2016)Haddad, Palacios, Pastor, and
+  Zamorano}]{haddad2016smoothed}
+Haddad, B., Palacios, D., Pastor, M., and Zamorano, J.~J.: Smoothed particle
+  hydrodynamic modeling of volcanic debris flows: Application to Huiloac Gorge
+  lahars (Popocat{\'e}petl volcano, Mexico), Journal of Volcanology and
+  Geothermal Research, 324, 73--87, 2016.
+
 \bibitem[{Harlow et~al.(1965)Harlow, Welch et~al.}]{harlow1965numerical}
 Harlow, F.~H., Welch, J.~E., et~al.: Numerical calculation of time-dependent
   viscous incompressible flow of fluid with free surface, Physics of fluids, 8,
   2182, 1965.
+
+\bibitem[{H{\'e}rault et~al.(2010)H{\'e}rault, Bilotta, and
+  Dalrymple}]{herault2010sph}
+H{\'e}rault, A., Bilotta, G., and Dalrymple, R.~A.: Sph on gpu with cuda,
+  Journal of Hydraulic Research, 48, 74--79, 2010.
 
 \bibitem[{Herzog et~al.(1998)Herzog, Graf, Textor, and
   Oberhuber}]{herzog1998effect}
@@ -176,11 +210,6 @@ Kays, W.~M.: Turbulent Prandtl number—where are we?, Journal of Heat
 Kobs, S.: Modeling particle motion and near-vent deposition in explosive
   volcanic eruptions, State University of New York at Buffalo, 2009.
 
-\bibitem[{Koyaguchi and Woods(1996)}]{koyaguchi1996formation}
-Koyaguchi, T. and Woods, A.~W.: On the formation of eruption columns following
-  explosive mixing of magma and surface-water, Journal of Geophysical Research:
-  Solid Earth (1978--2012), 101, 5561--5574, 1996.
-
 \bibitem[{Koyaguchi et~al.(2009)Koyaguchi, Ochiai, and
   Suzuki}]{koyaguchi2009effect}
 Koyaguchi, T., Ochiai, K., and Suzuki, Y.~J.: The effect of intensity of
@@ -194,19 +223,9 @@ Kumar, D., Patra, A.~K., Pitman, E.~B., and Chi, H.: Parallel Godunov smoothed
   and an application to granular flows, Computer Physics Communications, 184,
   2277--2286, 2013.
 
-\bibitem[{Langmann et~al.(1997)Langmann, Herzog, and
-  Graf}]{langmann1997radiative}
-Langmann, B., Herzog, M., and Graf, H.-F.: Radiative forcing of sulfate
-  aerosols as determined by a regional circulation-chemistry transport model,
-  Journal of Aerosol Science, 28, S389--S390, 1997.
-
 \bibitem[{List(1982)}]{list1982turbulent}
 List, E.: Turbulent jets and plumes, Annual review of fluid mechanics, 14,
   189--212, 1982.
-
-\bibitem[{Lockwood and Hazlett(2013)}]{lockwood2013volcanoes}
-Lockwood, J.~P. and Hazlett, R.~W.: Volcanoes: global perspectives, John Wiley
-  \& Sons, 2013.
 
 \bibitem[{Lucy(1977)}]{lucy1977numerical}
 Lucy, L.~B.: A numerical approach to the testing of the fission hypothesis, The
@@ -219,6 +238,10 @@ Mastin, L.~G.: A user-friendly one-dimensional model for wet volcanic plumes,
 \bibitem[{Mastin(2011)}]{1194}
 Mastin, L.~G.: Plumeria 2.3.1, \urlprefix\url{https://vhub.org/resources/1194},
   2011.
+
+\bibitem[{Monaghan(1989)}]{monaghan1989problem}
+Monaghan, J.: On the problem of penetration in particle methods, Journal of
+  Computational physics, 82, 1--15, 1989.
 
 \bibitem[{Monaghan(2002)}]{monaghan2002sph}
 Monaghan, J.: SPH compressible turbulence, Monthly Notices of the Royal
@@ -252,12 +275,6 @@ Monaghan, J.~J. and Kajtar, J.~B.: SPH particle boundary forces for arbitrary
 Monaghan, J.~J. and Lattanzio, J.~C.: A refined particle method for
   astrophysical problems, Astronomy and astrophysics, 149, 135--143, 1985.
 
-\bibitem[{Morton et~al.(1956)Morton, Taylor, and Turner}]{morton1956turbulent}
-Morton, B., Taylor, G., and Turner, J.: Turbulent gravitational convection from
-  maintained and instantaneous sources, in: Proceedings of the Royal Society of
-  London A: Mathematical, Physical and Engineering Sciences, vol. 234, pp.
-  1--23, The Royal Society, 1956.
-
 \bibitem[{Neri et~al.(2003)Neri, Esposti~Ongaro, Macedonio, and
   Gidaspow}]{neri2003multiparticle}
 Neri, A., Esposti~Ongaro, T., Macedonio, G., and Gidaspow, D.: Multiparticle
@@ -285,6 +302,12 @@ Patra, A. and Kim, D.: Efficient mesh partitioning for adaptive hp finite
   element meshes, in: In International Conference on Domain Decomposition
   Methods, Citeseer, 1999.
 
+\bibitem[{Pouget et~al.(2016)Pouget, Bursik, Singla, and
+  Singh}]{pouget2016sensitivity}
+Pouget, S., Bursik, M., Singla, P., and Singh, T.: Sensitivity analysis of a
+  one-dimensional model of a volcanic plume with particle fallout and collapse
+  behavior, Journal of Volcanology and Geothermal Research, 2016.
+
 \bibitem[{Price(2012)}]{price2012smoothed}
 Price, D.~J.: Smoothed particle hydrodynamics and magnetohydrodynamics, Journal
   of Computational Physics, 231, 759--794, 2012.
@@ -298,20 +321,11 @@ Rumsey, C.: Implementing Turbulence Models into the Compressible RANS
   Equations,
   \urlprefix\url{http://turbmodels.larc.nasa.gov/implementrans.html}, 2014.
 
-\bibitem[{Settle(1978)}]{settle1978volcanic}
-Settle, M.: Volcanic eruption clouds and the thermal power output of explosive
-  eruptions, Journal of Volcanology and Geothermal Research, 3, 309--324, 1978.
-
 \bibitem[{Sigurdsson et~al.(1984)Sigurdsson, Carey, and
   Espindola}]{sigurdsson19841982}
 Sigurdsson, H., Carey, S., and Espindola, J.: The 1982 eruptions of El
   Chich{\'o}n volcano, Mexico: stratigraphy of pyroclastic deposits, Journal of
   Volcanology and Geothermal Research, 23, 11--37, 1984.
-
-\bibitem[{Sparks et~al.(1997)Sparks, Bursik, Carey, Gilbert, Glaze, Sigurdsson,
-  and Woods}]{sparks1997volcanic}
-Sparks, R. S.~J., Bursik, M., Carey, S., Gilbert, J., Glaze, L., Sigurdsson,
-  H., and Woods, A.: Volcanic plumes, Wiley, 1997.
 
 \bibitem[{Suzuki and Koyaguchi(2009)}]{suzuki2009three}
 Suzuki, Y. and Koyaguchi, T.: A three-dimensional numerical simulation of
@@ -384,11 +398,11 @@ Violeau, D. and Issa, R.: Numerical modelling of complex turbulent free-surface
 Vitturi, M. d.~M.: PlumeMoM, \urlprefix\url{https://vhub.org/resources/3541},
   2015.
 
-\bibitem[{Wilson et~al.(1978)Wilson, Sparks, Huang, and
-  Watkins}]{wilson1978control}
-Wilson, L., Sparks, R., Huang, T., and Watkins, N.: The control of volcanic
-  column heights by eruption energetics and dynamics, Journal of Geophysical
-  Research: Solid Earth (1978--2012), 83, 1829--1836, 1978.
+\bibitem[{Weller et~al.(1998)Weller, Tabor, Jasak, and
+  Fureby}]{weller1998tensorial}
+Weller, H.~G., Tabor, G., Jasak, H., and Fureby, C.: A tensorial approach to
+  computational continuum mechanics using object-oriented techniques, Computers
+  in physics, 12, 620--631, 1998.
 
 \bibitem[{Woodhouse et~al.(2013)Woodhouse, Hogg, Phillips, and
   Sparks}]{woodhouse2013interaction}
@@ -399,20 +413,6 @@ Woodhouse, M., Hogg, A., Phillips, J., and Sparks, R.: Interaction between
 \bibitem[{Woods(1988)}]{woods1988fluid}
 Woods, A.: The fluid dynamics and thermodynamics of eruption columns, Bulletin
   of Volcanology, 50, 169--193, 1988.
-
-\bibitem[{Woods(1993)}]{woods1993moist}
-Woods, A.~W.: Moist convection and the injection of volcanic ash into the
-  atmosphere, Journal of Geophysical Research: Solid Earth (1978--2012), 98,
-  17\,627--17\,636, 1993.
-
-\bibitem[{Woods and Bower(1995)}]{woods1995decompression}
-Woods, A.~W. and Bower, S.~M.: The decompression of volcanic jets in a crater
-  during explosive volcanic eruptions, Earth and Planetary Science Letters,
-  131, 189--205, 1995.
-
-\bibitem[{Woods and Bursik(1991)}]{woods1991particle}
-Woods, A.~W. and Bursik, M.~I.: Particle fallout, thermal disequilibrium and
-  volcanic plumes, Bulletin of Volcanology, 53, 559--570, 1991.
 
 \bibitem[{Wrobel and Brebbia(1991)}]{wrobel1991computational}
 Wrobel, L.~C. and Brebbia, C.: Computational Modelling of Free and Moving
