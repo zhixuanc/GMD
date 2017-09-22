@@ -90,14 +90,14 @@ University at Buffalo, SUNY, New York, USA}
 \maketitle
 \begin{abstract}
 
-Plume-SPH provides the first particle based simulation of volcanic plumes. SPH (smoothed particle hydrodynamics) has several advantages over currently used mesh based methods in modeling of multiphase free boundary flows like volcanic plumes. This tool will provide more accurate eruption source terms to users of VATDs (Volcanic ash transport and dispersion models) greatly improving volcanic ash forecasts. The accuracy of these terms is crucial for forecasts from VATDs and the 3D SPH model presented here will provide better numerical accuracy. As an initial effort to exploit the feasibility and advantages of SPH in volcanic plume modeling, we adopt a relatively simple physics model (3D dusty-gas dynamic model assuming well mixed eruption material, dynamic equilibrium and thermodynamic equilibrium between erupted material and air that entrained into the plume and minimal effect of winds) targeted at capturing the salient features of a volcanic plume. The documented open source code is easily obtained and extended to incorporate other models of physics of interest to the large community of researchers investigating multiphase free boundary flows of volcanic or other origins. 
+Plume-SPH provides the first particle based simulation of volcanic plumes. SPH (smoothed particle hydrodynamics) has several advantages over currently used mesh based methods in modeling of multiphase free boundary flows like volcanic plumes. This tool will provide more accurate eruption source terms to users of VATDs (Volcanic ash transport and dispersion models) greatly improving volcanic ash forecasts. The accuracy of these terms is crucial for forecasts from VATDs and the 3D SPH model presented here will provide better numerical accuracy. As an initial effort to exploit the feasibility and advantages of SPH in volcanic plume modeling, we adopt a relatively simple physics model (3D dusty-gas dynamic model assuming well mixed eruption material, dynamic equilibrium and thermodynamic equilibrium between erupted material and air that entrained into the plume, and minimal effect of winds) targeted at capturing the salient features of a volcanic plume. The documented open source code is easily obtained and extended to incorporate other models of physics of interest to the large community of researchers investigating multiphase free boundary flows of volcanic or other origins. 
 
 The Plume-SPH code also incorporates  several newly developed techniques in SPH  needed to address numerical challenges in simulating multiphase compressible turbulent flow.  The code should thus be also of general interest to the much larger community of researchers using and developing SPH based tools. In particular, the $SPH-\varepsilon$ turbulence model is to capture mixing at unresolved scales, heat exchange due to turbulence is calculated by a Reynolds analogy and a corrected SPH is used to handle tensile instability and deficiency of particle distribution near the boundaries. We also developed methodology to impose velocity inlet and pressure outlet boundary conditions, both of which are scarce in traditional implementations of SPH. 
 
 The core solver of our model is parallelized with MPI (message passing interface) obtaining good weak and strong scalability using novel techniques for data management using a SFCs (space-filling curves) and object creation time based indexing and hash table based storage scheme. These techniques are of interest to  researchers engaged in developing particle in cell type methods. The code is first verified by 1D shock tube tests, then by comparing velocity and concentration distribution along the central axis and on the transverse
 cross with experimental results of JPUE (jet or plume that is ejected from a nozzle into a uniform environment). 
 %The model is validated by comparing against simulation results from other 3D plume models.
-Profiles of several integrated variables are compared with those calculated by existing 3D plume models for an eruption with the same MER (mass eruption rate) estimated for the Pinatubo eruption of June 15 1991. Our results are consistent with existing 3D plume models. Analysis of the plume evolution process illustrates that this model is able to reproduce the physics of plume development. 
+Profiles of several integrated variables are compared with those calculated by existing 3D plume models for an eruption with the same MER (mass eruption rate) estimated for the Pinatubo eruption of June 15 1991. Our results are consistent with existing 3D plume models. Analysis of the plume evolution process demonstrates that this model is able to reproduce the physics of plume development. 
 
 \end{abstract}
 
@@ -121,7 +121,7 @@ The development of 2D and 3D, time-dependent, and multiphase numerical models fo
 Another 3D model, SK-3D \citep{suzuki2005numerical} is a 3D time-dependent fluid dynamics model that attempts to reproduce the entrainment process of eruption clouds with relatively simple physics but with high order numerical accuracy and high spatial resolution.
 A series of simulations based on SK-3D was reported, including establishment of the relationship between the observable quantities of the eruption clouds and the eruption conditions at the vent \citep{suzuki2009three}, investigation of the effect of the intensity of turbulence in the umbrella cloud on dispersion and sedimentation of tephra \citep{koyaguchi2009effect}, determination of the entrainment coefficients of eruption columns as a function of height \citep{suzuki2010numerical} and investigation of the effect of wind field on entrainment coefficient \citep{suzuki20133d}. 
 
-While SK-3D focuses on accurately capturing the entrainment caused by turbulent mixture with higher resolution and numerical method of higher order, PDAC takes the disequilibrium between different phases into account and hence is a true multiphase model. Another 3D model, ATHAM (Active Tracer High-Resolution Atmospheric Model) \citep{oberhuber1998volcanic} focuses more on microphysics within the plume. As pyroclastic flow is not the initial concern of ATHAM, dynamic and thermodynamical equilibrium is assumed in ATHAM. The dynamic core of ATHAM solves the compressible Euler equations for momentum, pressure and temperature of the gas particle mixture \citep{oberhuber1998volcanic}. The subgrid-scale turbulence closure scheme differentiates between the horizontal and vertical directions \citep{herzog2003prognostic} captures turbulent mixing. The cloud microphysics predicts the mass of hydrometeors in liquid and ice phase \citep{herzog1998effect}. Additional modules, including gas phase chemistry \citep{trentmann2002simulation} and gas scavenging by hydrometeors \citep{textor2003injection} were added lately. A further extension was made to include particle aggregation \citep{textor2006volcanic1, textor2006volcanic2}. However, the resolution of ATHAM is still coarse compared with SK-3D and PDAC.
+While SK-3D focuses on accurately capturing the entrainment caused by turbulent mixture with higher resolution and numerical method of higher order, PDAC takes the disequilibrium between different phases into account and hence is a true multiphase model. Another 3D model, ATHAM (Active Tracer High-Resolution Atmospheric Model) \citep{oberhuber1998volcanic} focuses more on microphysics within the plume. As pyroclastic flow is not the initial concern of ATHAM, dynamic and thermodynamical equilibrium is assumed in ATHAM. The dynamic core of ATHAM solves the compressible Euler equations for momentum, pressure and temperature of the gas particle mixture \citep{oberhuber1998volcanic}. The subgrid-scale turbulence closure scheme that differentiates between the horizontal and vertical directions \citep{herzog2003prognostic} is adopted to capture turbulent mixing. The cloud microphysics predicts the mass of hydrometeors in liquid and ice phase \citep{herzog1998effect}. Additional modules, including gas phase chemistry \citep{trentmann2002simulation} and gas scavenging by hydrometeors \citep{textor2003injection} were added lately. A further extension was made to include particle aggregation \citep{textor2006volcanic1, textor2006volcanic2}. However, the resolution of ATHAM is still coarse compared with SK-3D and PDAC.
 
 Besides adding to their special strengths (ATHAM has been adding more and more microphysics, PDAC was extended to consider more phases), these models are also adding core strengths. PDAC development has begun to include the effect of microphysics into the model while ATHAM development has extended its ability to modeling pyroclastic flow. Both are using finer and finer resolution. 
 
@@ -149,7 +149,7 @@ These are enabled by the following features of SPH:
 \item Interface tracking is explicit in SPH through capturing of the locations of the particles. Less numerical effort is required for interface construction when we attempt to include the effects of mixing by resolving the detailed interface structure and dynamics of turbulence.
 \end{itemize}
 
-As discussed in the previous paragraph, existing 3D plume models focus on one or several specific aspects of plume and have been extended to be more comprehensive by accounting for more physics or more phases. Easy extensibility and capability of handling multiple phase flow without additional numerical effort greatly facilitate future extension of SPH models. As volcanic plumes are in nature multiphase and without pre-defined boundary in the atmosphere, SPH is a suitable numerical method for plume modeling. The core physics, such as entrainment of air and thermal expansion, are essential for all plume modeling while some other physics, such as water condensation and aggregation etc., are important in specific scenarios. As an initial effort on exploiting advantages of SPH in volcanic plume modeling, we focus on capturing basic features in plume development using a robust numerically and computationally efficient framework with support for scalable parallel computing. %So our current model is far away from comprehensive. 
+As discussed in the previous paragraph, existing 3D plume models focus on one or several specific aspects of plume and have been extended to be more comprehensive by accounting for more physics or more phases. Easy extensibility and capability of handling multiple phase flow with less additional numerical effort greatly facilitate future extension of SPH models. As volcanic plumes are in nature multiphase and without pre-defined boundary in the atmosphere, SPH is a suitable numerical method for plume modeling. The core physics, such as entrainment of air and thermal expansion, are essential for all plume modeling while some other physics, such as water condensation and aggregation etc., are important in specific scenarios. As an initial effort on exploiting advantages of SPH in volcanic plume modeling, we focus on capturing basic features in plume development using a numerically robust and computationally efficient framework with support for scalable parallel computing. %So our current model is far away from comprehensive. 
 
 Open source availability and the relatively easy extensibility of SPH will facilitate development of a more comprehensive community driven model.
 
@@ -162,7 +162,7 @@ Several issues endemic to classical SPH, like tensile instabilities,  compressib
 \item We develop methodology to impose pressure boundary conditions by adding extra layers of static ghost particles. Additional constraints on the time step are used to avoid the growth of numerical fluctuations near the pressure boundary. We impose a velocity inlet boundary condition by placing several layers of ghost particles moving with eruption velocity. 
 \item Turbulence model is crucial for reproducing the entrainment of air. There are several turbulence models proposed for SPH method \citep{issa2005numerical,violeau2007numerical}. We adopt a LANS (Lagrangian Averaged Navier-Stokes) turbulence model \citep{monaghan2011turbulence}, which was originally proposed for incompressible flow, and is extended here for compressible flow accounting for turbulent heat exchange. 
 \item Corrected formulation of SPH \citep{chen1999improvement} is adopted to bypass the well-known tensile instability issues of classical SPH.
-\item Simulation of volcanic plumes with acceptable accuracy requires fine resolution (very high particle counts) that cannot be accomplished without parallel computing large process counts. The core solver of our model is parallelized by distributed memory MPI (message passing interface standard) parallelism. In addition, a dynamic load balancing strategy is also developed. 
+\item Simulation of volcanic plumes with acceptable accuracy requires fine resolution (very high particle counts) that cannot be accomplished without parallel computing using large process counts. The core solver of our model is parallelized by distributed memory MPI (message passing interface standard) parallelism. In addition, a dynamic load balancing strategy is also developed. 
 \item Imposition of some types of boundary conditions (such as eruption boundary condition) requires dynamically adding and removing of particles during simulation. To address this issue, we adopt an efficient data management scheme based on time dependent SFC (space filling curve) induced indexing and hash table. The computational cost is further reduced by adjusting simulation domain adaptively.
 \end{itemize}
 
@@ -224,7 +224,7 @@ In mesh based methods, governing equations in Eulerian form, Eq. (\ref{eq:gov-cs
 %Governing equations in Lagrangian form, Eq. (\ref{eq:gov-nc-rho}) to Eq.(\ref{eq:gov-nc-e}), and Eulerian form, Eq. (\ref{eq:gov-cs-rho}) to Eq. (\ref{eq:gov-cs-e}), are a\dfrac{•}{•}ly equivalent, as deriving the Lagrangian form from the Eulerian is purely based on mathematics without any additional physical assumptions.
 
 \subsection{Boundary conditions}
-In the current model the initial domain is a box. The boundaries are categorized as the velocity inlet (a circular area at the center of the bottom of the box), wall boundary (box bottom), pressure outlet (other faces of the box).
+In the current model the initial domain is a box. The boundaries are categorized as the velocity inlet (a circular area at the center of the bottom of the box), wall boundary (box bottom) and pressure outlet (other faces of the box).
 %probably should add a section to list the input parameters in the verification section
 
 \subsubsection{Velocity inlet}
@@ -261,12 +261,12 @@ There are several procedures for discretizing governing equations (PDEs or ODEs)
 A\left(\textbf{x}\right)=\int_{-\infty}^{\infty} A\left(\textbf{x} \prime\right) \delta \left(\textbf{x} \prime - \textbf{x}\right) d\textbf{x} \prime
 \label{eq:Dirac-translation}
 \end{equation}
-The Dirac function in Eq. (\ref{eq:Dirac-translation}) can be approximated by a weighting function $w\left(\textbf{x}-\textbf{x}\prime, h\right)$ (or $w\left(\textbf{x}\prime-\textbf{x}, h\right)$) which tends to a Dirac function when the smoothing length $h \rightarrow 0$ :
+The Dirac function $\delta$ in Eq. (\ref{eq:Dirac-translation}) can be approximated by a weighting function $w\left(\textbf{x}-\textbf{x}\prime, h\right)$ (or $w\left(\textbf{x}\prime-\textbf{x}, h\right)$) which tends to a Dirac function when the smoothing length $h \rightarrow 0$ :
 \begin{equation}
 \lim _{h \rightarrow 0} w\left(\textbf{x} \prime-\textbf{x}, h\right) =  \delta \left(\textbf{x} \prime - \textbf{x}\right)
 \label{eq:SPH_kernel_delta}
 \end{equation}
-So it can be viewed as an approximate form of the Dirac function and should satisfy the normalization condition:
+The weighting function, as an approximate form of the Dirac function, should satisfy the normalization condition:
 \begin{equation}
 \int	 w\left(\textbf{x}-\textbf{x}\prime, h\right) d\textbf{x}\prime = 1
 \label{eq:SPH-kernel-normalization-prop}
@@ -349,7 +349,7 @@ where
 \end{align}
 The artificial viscosity term $\Pi_{ab}$ is a Galilean invariant and vanishes for rigid rotation. It produces a repulsive force between two particles when they are approaching each other and an attractive force when they are receding from each other. 
 
-The SPH viscosity can be related to a continuum viscosity by converting the summation to integrals \citep{monaghan2005smoothed}. It has been shown that  shear viscosity coefficient $\eta = \frac{\rho \alpha h c}{8} $ and bulk viscosity coefficient $ \zeta = \frac{5 \eta}{3}$ are appropriate for two dimensional flows and modified to $\eta = \frac{\rho \alpha h c}{10} $ , $ \zeta = \frac{5 \eta}{3}$ for three dimensional flows.
+The SPH viscosity can be related to a continuum viscosity by converting the summation to integrals \citep{monaghan2005smoothed}. It has been shown that  shear viscosity coefficient $\eta = \frac{\rho \alpha h c}{8} $ and bulk viscosity coefficient $ \zeta = \frac{5 \eta}{3}$ are appropriate for two dimensional flows. $\eta = \frac{\rho \alpha h c}{10} $ and $ \zeta = \frac{5 \eta}{3}$ are appropriate for three dimensional flows.
 An extra term was added to $\nu$ considering aspects of the dissipative term in shock solutions based on Riemann solvers and lead to a new formulation of artificial viscosity. We adopt this new formulation in our simulation:
 \begin{equation}
 \Pi_{ab}^{\beta} = 
@@ -376,7 +376,7 @@ The basic interpolation given in Eq. (\ref{eq:SPH-approximation-sum}) to Eq. (\r
 \left\langle\dfrac{d e_a}{d t}\right\rangle=
  0.5\sum_b m_b \textbf{v}_{a b}\left(\dfrac{p_b}{\rho_b^2} + \dfrac{p_a}{\rho_a^2} + \Pi_{ab}\right) \cdot \nabla_a w_{a b}\left(h\right) \label{eq:ns-sph-e}
 \end{align}
-where, $a$ is the SPH particle index, $\textbf{v}_{a b} = \textbf{v}_a - \textbf{v}_b$. $\Pi$ is an artificial viscosity term, which is discussed in section \ref{sec:artificial-viscosity}. $w_{a b}\left(h\right)$ is a concise form of $w\left(\textbf{x}_a - \textbf{x}_b, h\right)$ and from here on, we will use this concise form.
+where, $a$ is the SPH particle index. $\Pi$ is an artificial viscosity term, which is discussed in section \ref{sec:artificial-viscosity}. $w_{a b}\left(h\right)$ is a concise form of $w\left(\textbf{x}_a - \textbf{x}_b, h\right)$ and from here on, we will use this concise form.
 %However, these discretized formulations will not guarantee conservation of entropy. We can obtain conservation of entropy by giving up on conservation of mass or thermal energy adopting  alternative discretized formulations \citep{monaghan1992smoothed}.
 As a Lagrangian method, particle position is also updated at every time step.
 \begin{equation}
@@ -400,7 +400,6 @@ The physical quantities (velocity, density and pressure) and particle position c
 \Delta t = \textrm{CFL} \min_a \bigg \lbrace \dfrac{\left[\frac{m_a}{\rho_a}\right]^{\frac{1}{d}}}{c_a} \bigg \rbrace
 \end{equation}
 where $c_a$ is sound speed at particle $a$ and calculated based on heat specific ration of the mixture $\gamma_m$ (See Eq. (\ref{eq:sound-speed-mixture})). 
-$d$ is number of dimensions. 
 \begin{equation}
 c_a = \left( \gamma_m \frac{p}{\rho} \right)^{0.5}
 \label{eq:sound-speed-mixture}
@@ -409,31 +408,31 @@ c_a = \left( \gamma_m \frac{p}{\rho} \right)^{0.5}
 First order Euler integration, with $\textrm{CFL} = 0.2$, is used to advance in time.
 
 \subsection{Tensile instability and corrected derivatives}
-The classical SPH method was known to suffer from tensile instability and boundary deficiency. Tests of the standard SPH method indicate an instability in the tensile regime, while the calculations are stable in compression.  A simple example of such a test calculation exhibiting the instability involves a body which is subjected to an uniform initial stress, either compressive or tensile. If the initial stress is tensile, a very small velocity perturbation on a single particle can lead to particles clumping together, forming large voids and seriously corrupting density distribution. But if the initial stress is compressive, the small velocity perturbation on a single particle can not lead to any changes in particle distribution \citep{swegle1995smoothed}. To address these difficulties, \citep{chen1999improvement} proposed a corrected SPH formulation. For 1D case, employing a Taylor expansion for $A\left(x\right)$ about $x_a$, multiplying both sides by kernel function and then doing integration over the domain gives
+The classical SPH method was known to suffer from tensile instability and boundary deficiency. Tests of the standard SPH method indicate an instability in the tensile regime, while the calculations are stable in compression.  A simple example of such a test calculation exhibiting the instability involves a body which is subject to an uniform initial stress, either compressive or tensile. If the initial stress is tensile, a very small velocity perturbation on a single particle can lead to particles clumping together, forming large voids and seriously corrupting density distribution. But if the initial stress is compressive, the small velocity perturbation on a single particle can not lead to any changes in particle distribution \citep{swegle1995smoothed}. To address these difficulties, \citet{chen1999improvement} proposed a corrected SPH formulation. For 1D case, employing a Taylor expansion for $A\left(x\right)$ about $x_a$, multiplying both sides by kernel function and then doing integration over the domain gives
 \begin{equation}
 \int_{\Omega} A\left(x\right) w\left(x- x_a, h\right) dx = 
 A_a \int_{\Omega} w\left(x - x_a, h\right) dx +\dfrac{\partial A}{\partial x}(x_a) \int_{\Omega} \left(x-x_a\right) w\left(x - x_a, h\right) dx +...
 \end{equation}
 Ignoring derivative terms higher than first order, and writing the integral in particle approximation form leads to:
 \begin{equation}
-A_a = \frac{\sum_b m_b \dfrac{A_b}{\rho_b} w\left(x_a-x_b, h\right)}{\sum_b m_b \dfrac{1}{\rho_b} w\left(x_a-x_b, h\right)}
+A_a = \frac{\sum_b m_b \dfrac{A_b}{\rho_b} w_{ab}\left(h\right)}{\sum_b m_b \dfrac{1}{\rho_b} w_{ab}\left(h\right)}
 \label{eq:CSP-function-approximation-1d}
 \end{equation}
-Notice that the denominator in Eq. (\ref{eq:CSP-function-approximation-1d}) is actually summation approximation of Eq. (\ref{eq:SPH-kernel-normalization-prop}). That is to say, Eq. (\ref{eq:CSP-function-approximation-1d}) and Eq. (\ref{eq:SPH-approximation-sum}) are the same for particles far away from boundaries as the denominator in Eq. (\ref{eq:CSP-function-approximation-1d}) becomes $1$ in that case.
+Notice that the denominator in Eq. (\ref{eq:CSP-function-approximation-1d}) is actually summation approximation of the left side in Eq. (\ref{eq:SPH-kernel-normalization-prop}). That is to say, Eq. (\ref{eq:CSP-function-approximation-1d}) and Eq. (\ref{eq:SPH-approximation-sum}) are the same for particles far away from boundaries as the denominator in Eq. (\ref{eq:CSP-function-approximation-1d}) becomes $1$ in that case.
 The first order derivative term can be obtained in a similar way:
 \begin{equation}
-\nabla A_a = \frac{\sum_b m_b \dfrac{A_b - A_a}{\rho_b} \nabla_a w\left(x_a-x_b, h\right)}{\sum_b m_b \dfrac{x_b - x_a}{\rho_b} \nabla_a w\left(x_a-x_b, h\right)}
+\nabla A_a = \frac{\sum_b m_b \dfrac{A_b - A_a}{\rho_b} \nabla_a w_{ab}\left(h\right)}{\sum_b m_b \dfrac{x_b - x_a}{\rho_b} \nabla_a w_{ab}\left( h\right)}
 \end{equation}
 
 For problems of higher dimension, the expressions for function approximation are exactly the same as Eq. (\ref{eq:CSP-function-approximation-1d}), even though the derivation is different. The first order derivative can be obtained by solving system of equations explicitly or numerically \citep{chen1999improvement}.
 
 \subsection{Mass fraction update}
-Air and erupted material are represented by two different sets of SPH particles (or discretization points) in the model. Based on assumptions we made in section \ref{sec:physics-model}, only density needs to be updated respectively for each phase. The updating of density is exactly the same as Eq. (\ref{eq:ns-sph-d}) in spirit.  Particles of phase 1 are not be counted while evaluating density of phase 2 and vice versa. Updating of density is then based on the following discretized equations.
+Air and erupted material are represented by two different sets of SPH particles (or discretization points) in the model. Based on assumptions we made in section \ref{sec:physics-model}, only density needs to be updated respectively for each phase. The updating of density is exactly the same as Eq. (\ref{eq:ns-sph-d}) in spirit.  Particles of phase 1 are not counted while evaluating density of phase 2 and vice versa. Updating of density is then based on the following discretized equations.
 \begin{equation}
 <\rho_{\alpha}^a>=\frac{\sum m_b w_{\alpha b} \left(h\right)}{\sum \frac{m_b}{\rho_b} w_{\alpha b} \left(h\right) +\sum \frac{m_j}{\rho_j} w_{\alpha j} \left(h\right)} \label{eq:gov-sph-d1}
 \end{equation}
 \begin{equation}
-<\rho_\alpha^{sg}>=\frac{\sum_j m_j w_{\alpha j} \left(h\right)}{\sum \frac{m_b}{\rho_b} w_{\alpha b} \left(h\right) +\sum \frac{m_j}{\rho_j} w_{\alpha j} \left(h\right)} \label{eq:gov-sph-d2}
+<\rho_\alpha^{sg}>=\frac{\sum m_j w_{\alpha j} \left(h\right)}{\sum \frac{m_b}{\rho_b} w_{\alpha b} \left(h\right) +\sum \frac{m_j}{\rho_j} w_{\alpha j} \left(h\right)} \label{eq:gov-sph-d2}
 \end{equation}
 where the subscript $a$ and $b$ represents air particles (phase 1) while $i$ and $j$ represents erupted material. $\beta$ and $\alpha$ represents either erupted material or air.
 $\rho_a^a$ is density of phase 1 (air). 
@@ -447,17 +446,17 @@ By definition, the mass fraction is updated according to Eq. (\ref{eq:gov-sph-xi
 
 In areas far away from the interface, updating of density is exactly the same as that for single phase flow. For example, in the right side and left side (or blue areas) in Fig. \ref{fig:SPH-multiple-density}, where there are only air particles, Eq.  (\ref{eq:gov-sph-d2}) evaluates to zero and total density is:
 \begin{equation}
-\rho_{\alpha}=\rho_{\alpha}^a=\frac{\sum m_b w_{\alpha b} \left(h\right)}{\sum \frac{m_b}{\rho_b} w_{\alpha b}}
+\rho_{\alpha}=\rho_{\alpha}^a=\frac{\sum m_b w_{\alpha b} \left(h\right)}{\sum \frac{m_b}{\rho_b} w_{\alpha b} \left(h\right)}
 \end{equation}
 Which is a special case of Eq. (\ref{eq:CSP-function-approximation-1d}). For these areas occupied by only particles of phase 2 and far away from the interface, similarly, the equation for density update becomes: 
 \begin{equation}
-\rho_{\alpha}=\rho_{\alpha}^{sg}=\frac{\sum m_j w_{\alpha j} \left(h\right)}{\sum \frac{m_j}{\rho_j} w_{\alpha j}}
+\rho_{\alpha}=\rho_{\alpha}^{sg}=\frac{\sum m_j w_{\alpha j} \left(h\right)}{\sum \frac{m_j}{\rho_j} w_{\alpha j} \left(h\right)}
 \end{equation}
 That is to say, the same density updating equation can be applied for both phases and no additional numerical treatment needed to locate where the interface is.
 
 \begin{figure}
 \includegraphics[width=12cm]{Interface}
-\caption{In the left figure, the blue particles (phaseID=1) represent air particles the red ones (phaseID=2) represent erupted material. The right figure shows corresponding mass fraction. Mass fraction are evaluated based on Eq. (\ref{eq:gov-sph-d1}) and Eq. (\ref{eq:gov-sph-d1}) without any other interface track or capture method.}
+\caption{In the left figure, the blue particles (phaseID=1) represent air particles the red ones (phaseID=2) represent erupted material. The right figure shows corresponding mass fraction. Mass fraction are evaluated based on Eq. (\ref{eq:gov-sph-d1}) and Eq. (\ref{eq:gov-sph-d2}) without any other interface track or capture method.}
 \label{fig:SPH-multiple-density}
 \end{figure}
 
@@ -513,7 +512,7 @@ By making the replacement:
 \label{eq:replacement-in-turb-derive}
 \dfrac{G\left(\vert \textbf{x} _b - \textbf{x} _a \vert, l\right)}{\rho _b} \rightarrow \dfrac{K_{ab}}{M}
 \end{equation}
-where $K_{ab} = l^d G_{ab}$, $M = \rho_0 l^d$ in which $d$ is the dimension and $\rho_0$ is initial density. $SPH-\varepsilon$ turbulence model is obtained after lengthy derivation:
+where $K_{ab} = l^d G_{ab}$, $M = \rho_0 l^d$ in which $\rho_0$ is initial density. $SPH-\varepsilon$ turbulence model is obtained after lengthy derivation:
 \begin{equation}
 \label{eq:monaghan-mom-turb}
 \dfrac{d \textbf{v}_a}{dt} = -\sum_b \left[ m_b \left(\dfrac{p_b}{\rho_b^2} + \dfrac{p_a}{\rho_a^2}\right) \bigtriangledown_aw_{a b}\left(h\right)\right] + \sum_b m_b \dfrac{\varepsilon}{2} \dfrac{\textbf{v}_{ab} \cdot \textbf{v}_{ab}}{M} \bigtriangledown_a K_{ab}
@@ -626,7 +625,7 @@ C_p \dfrac{dT}{dt} = \sum_b \dfrac{m_b}{\rho_a \rho_b} \left(\kappa_a + \kappa_b
 \end{equation}
 where $F_{ab} (h)$ is short for $F \left( \textbf{x}_a - \textbf{x}_b, h \right)$, whose definition is:
 \begin{equation}
-F_{ab}(h) \textbf{x}_{ab} = \nabla _a w_{ab}
+F_{ab}(h) \textbf{x}_{ab} = \nabla_a w_{ab} \left( h \right)
 \end{equation}
 $F_{ab}$ is always nonpositive, which guarantees that heat flux flows from hot to cold. 
 Plug the turbulent thermal conductivity into the heat conduction equation:
@@ -707,7 +706,7 @@ In DualSPHysics \citep {crespo2015dualsphysics}, the physical quantities of each
 
 As for domain decomposition, even though more complicated graph-based partitioning tools \citep {biswas1999experiments} might get higher quality decomposition, they requires much more effort in programming and computation. So we adopt an easy-programming scheme based on SFC \citep {patra1999efficient}. Subfigure $c$ of Fig. \ref{fig:bc_and_domain_decomp} shows a cross section view of domain decomposition.
 
-More details about the data structure, domain decomposition, load balancing, domain adjusting and performance testing has been published separately \citep{cao2017data}.
+More details about the data structure, domain decomposition, load balancing, domain adjusting and performance benchmarking has been published separately \citep{cao2017data}.
 
 \begin{figure}[!htb]
     \centering
@@ -748,7 +747,7 @@ More details about the data structure, domain decomposition, load balancing, dom
 
 Performance tests have been carried out on the computational cluster of CCR (Center for Computational Research) at University at Buffalo. Intel Xeon E5645 CPUs running at 2.40GHz clock rate with 4GB memory per core on a Q-Logic Infiniband is used in these tests. Each node is comprised of two sockets with 6 of these cores. Memory and level 3 cache are shared on each node. The initial domain is $[-4.8km, 4.8km] \times [-4.8km,4.8km] \times [0km, 6km]$. Almost linear speed up is observed in our strong scalability test (Fig. \ref{fig:strong_scale}).
 
-The weak scalability test is conducted with the same initial domain and various smoothing lengths. Each simulation runs for 400 time steps. The average number of real particles of each process keeps constant at $25900$. As shown in Fig. \ref{fig:weak_scale}, simulation times increase around $1/3$ when number of cores increase from 16 to 4208. For the test problem in this section, the volcanic plume finally reaches to a region of $[-30km , 30km] \times [-30km, 30km] \times [1.5km, 40km]$ after around 400 seconds of eruption. When numerical simulation goes up to 90 seconds, the plume is still within a region of $[-10km, 10km] \times [-10km, 10km] \times [0km,25km]$. This implies that adjusting of domain can avoid computing large number of uninfluenced air particles, especially for the beginning stage of simulation. A domain adjusting algorithm is designed and implemented in our code. Figure \ref{fig:adj_vs_no} shows that simulation time of the test problem is greatly reduced when we adopt the domain adjusting strategy.
+The weak scalability test is conducted with the same initial domain and various smoothing lengths. Each simulation runs for 400 time steps. The average number of real particles of each process keeps constant at $25900$. As shown in Fig. \ref{fig:weak_scale}, simulation times increase around $1/3$ when number of cores increase from 16 to 4208. For the test problem in this section, the volcanic plume finally reaches to a region of $[-30km , 30km] \times [-30km, 30km] \times [1.5km, 40km]$ after around 400 seconds of eruption. When numerical simulation goes up to 90 seconds, the plume is still within a region of $[-10km, 10km] \times [-10km, 10km] \times [0km,25km]$. This implies that adjusting of domain can avoid computing large number of uninfluenced air particles, especially for the beginning stage of simulation. A domain adjusting algorithm \citep{cao2017data} is designed and implemented in our code. Figure \ref{fig:adj_vs_no} shows that simulation time of the test problem is greatly reduced when we adopt the domain adjusting strategy.
 
 \section{Verification and validation} \label{sec:verification-validation}
 We present a series of numerical simulations to verify and validate our model in this section. Plume-SPH is first verified by 1D shock tube tests then by a JPUE (jet or plume that is ejected from a nozzle into a uniform environment) simulation. Velocity and mass fraction distribution both along the central axis and cross transverse are compared with experimental results. The pattern of ambient particles entrainment is also clearly shown. Then a simulation of representative strong volcanic plume is conducted. Integrated local variable are comparable with simulation results from existing 3D plume models.
@@ -805,9 +804,9 @@ with $\gamma=7$ and $B$ is evaluated by:
 \begin{equation}
 B=\dfrac{\rho_0 c^2}{\gamma}
 \end{equation}
-where $c$ is the speed of sound in the liquid. The energy equation is actually decoupled from the momentum conservation equation and the mass conservation equation by using this equation of state (EOS). In addition, the "atmosphere" is assumed to be uniform and gravity is set to be zero. We set the temperature and density of ejected material the same as surrounding ambient. This further simplifies the scenario for the convenience of studying turbulent mixing. 
+where $c$ is the speed of sound in the liquid. The energy equation is actually decoupled from the momentum conservation equation and the mass conservation equation by using this EOS. In addition, the "atmosphere" is assumed to be uniform and gravity is set to be zero. We set the temperature and density of ejected material the same as surrounding ambient. This further simplifies the scenario for the convenience of studying turbulent mixing. 
 
-One overall feature of JPUE is "self-similarity" which means that the evolution of the JPUE is determined solely by the local scale of length and velocity which theoretically account for the fact that the rate of entrainment at the edge of JPUE is proportional to a characteristic velocity at each height. As a results, physical and numerical experiments do not necessary to have exactly the same setups and are compared on a non-dimensional basis.
+One overall feature of JPUE is "self-similarity" which means that the evolution of the JPUE is determined solely by the local scale of length and velocity, which theoretically account for the fact that the rate of entrainment at the edge of JPUE is proportional to a characteristic velocity at each height. As a results, physical and numerical experiments do not necessary to have exactly the same setups and are compared on a non-dimensional basis.
 
 \begin{table}[htp]
 	\begin{centering}
@@ -919,7 +918,7 @@ Both global variable and local variables are compared with existing models.
 \subsubsection{Input parameters}
 Eruption parameters, material properties and atmosphere are chosen to be the same as the strong plume no wind case in a comparison study on eruptive column models by \citet {costa2016results}. Eruption conditions are listed in Table \ref{tab:input_parameters}. As our model does not distinguish solid particles of different sizes, only mass fraction of solids of all size is used in simulation even though two size classes were provided by \citet {costa2016results}. The density of erupted material at the vent and radius of the vent can be computed from the given parameters. The eruption pressure is assumed to be as the same as pressure of ambient at the vent and hence is not given in the table. The vertical profiles of atmospheric properties were obtained based on the reanalysis data from ECMWF (European Centre for Medium-Range Weather Forecasts) for the period corresponding to the climactic phase of the Pinatubo eruption (Philippines, 15 June 1991). These conditions are more typical of a tropical atmosphere (see Fig. 1B in \citep{costa2016results}). 
 %Wind speed is not used in our current model even though it is given (by one component speed from west to east and another component speed from south to north). 
-Vertical distribution of temperature, pressure and density is used to establish stratified atmosphere. Wind velocity and specific humidity are not used in our simulation even though they were also provided in Fig. 1B \citep{costa2016results}. Material properties, shown in Table \ref{tab:material_properties}, are selected based on properties of Pinatubo and Shinmoe-dake eruption. Other material properties not given in the table can be inferred from these given parameters based on their relationships.
+Vertical distribution of temperature, pressure and density is used to establish stratified atmosphere. Wind velocity and specific humidity are not used in our simulation even though they were also provided by \citet{costa2016results} (see Fig. 1B). Material properties, shown in Table \ref{tab:material_properties}, are selected based on properties of Pinatubo and Shinmoe-dake eruption. Other material properties not given in the table can be inferred from these given parameters based on their relationships.
 
 \begin{table}[htp]
 	\begin{centering}
@@ -941,7 +940,7 @@ Vertical distribution of temperature, pressure and density is used to establish 
 	\end{centering}
 \end{table}
 
-Fig. \ref{fig:pinatubo-simulation-results-vis} shows the mass fraction of simulated volcanic plume at 300s after eruption, at which time the plume starts spreading radially. A contour plot of the mass fraction on the vertical cross-section (y-z plane) were also provided. The zoomed view of the quivier plot shows detailed entrainment of air at the margin of the plume.
+Figure \ref{fig:pinatubo-simulation-results-vis} shows the mass fraction of simulated volcanic plume at 300s after eruption, at which time the plume starts spreading radially. A contour plot of the mass fraction on the vertical cross-section (y-z plane) were also provided. The zoomed view of the quivier plot shows detailed entrainment of air at the margin of the plume.
 
 \begin{figure}[!htb]
     \centering
@@ -1017,7 +1016,7 @@ With more cool air entrained into the plume and mixing with the hot erupted mate
 \caption{Radius of the strong plume without wind after reaching its top height.}
 \label{fig:strong_local_radius}
 \end{figure}
-Our model adopts the same assumptions and governing equations as SK-3D. However, there is still a obvious disparity between the profiles of local variables of our model and SK-3D. One of the big differences between these two models is that we adopt a LANS type of turbulence model while SK-3D adopts a LES (large eddy simulation) turbulence model. This implies that choice of  turbulence model might play a critical role in plume simulation.
+Our model adopts the same assumptions and governing equations as SK-3D. However, there is still an obvious disparity between the profiles of local variables of our model and SK-3D. One of the big differences between these two models is that we adopt a LANS type of turbulence model while SK-3D adopts a LES (large eddy simulation) turbulence model. This implies that choice of  turbulence model might play a critical role in plume simulation.
 
 %\subsubsection{Evolution of plume} 
 %
@@ -1037,9 +1036,9 @@ Our model adopts the same assumptions and governing equations as SK-3D. However,
 %Figure \ref{fig:strong_evolution} shows the overall evolution process of plume. Plume keeps rising up and entraining air into the plume until it reaches its top height(around t=300 seconds). Afterwards the mixtures of erupted material and air then fall back to neutral height and starts spreading radially. Detailed velocity quiver plot in Fig. \ref{fig:strong_plume_t50} shows entraining of air into the plume at the edge of column. The evolution of the plume further verifies our model.
 
 \conclusions  \label{sec:conclusion}%% \conclusions[modified heading if necessary]
-A new plume model was developed based on the SPH method. Extensions necessary for Lagrangian methodology and compressible flow were made in the formulation of the equations of motion and turbulence models. Advanced numerical techniques in SPH were exploited and tailored for this model. High performance computing was used to mitigate the tradeoff between accuracy (depends on comprehensiveness of the model, resolution, order of accuracy of numerical methods, scheme for time upgrading.) and simulation time (depends on comprehensiveness of model, resolution, order of accuracy of numerical methods, scheme for time upgrading ... and computational techniques). The correctness of the code and model was verified and validated by a series of test simulations. Dimensionless velocity and concentration distribution across the cross-section and along the jet axis match well with experimental results of JPUE. Top height and integrated local variables simulated by our model are consistent with simulation results of existing 3D plume models. Comparison between our results with those of SK-3D implies that turbulence model plays a significant role in plume modeling.
+A new plume model was developed based on the SPH method. Extensions necessary for Lagrangian methodology and compressible flow were made in the formulation of the equations of motion and turbulence models. Advanced numerical techniques in SPH were exploited and tailored for this model. High performance computing was used to mitigate the tradeoff between accuracy (depends on comprehensiveness of the model, resolution, order of accuracy of numerical methods, scheme for time upgrading) and simulation time (depends on comprehensiveness of model, resolution, order of accuracy of numerical methods, scheme for time upgrading ... and computational techniques). The correctness of the code and model was verified and validated by a series of test simulations. Typical 1D shock tube problems were simulated and compared against analytical results showing good agreement. Dimensionless velocity and concentration distribution across the cross-section and along the jet axis match well with experimental results of JPUE. Top height and integrated local variables simulated by our model are consistent with simulation results of existing 3D plume models. Comparison between our results with those of SK-3D implies that turbulence model plays a significant role in plume modeling.
 
-Currently existing 3D models focus on certain aspect of the volcanic plume (PDAC on pyroclastic flow, ATHAM on microphysics, and SK-3D on entrainment with higher accuracy and higher order of accuracy) and hence, naturally, different assumptions were made in these models. However, these different aspects of volcanic plumes are not independent, but are actually coupled. For example, it has been illustrated by \cite{cerminara2016large} that gas-particle non-equilibrium would introduce a previously unrecognized jet-dragging effect, which imposes great influence on plume development, especially for weak plumes. In addition, there is no absolute boundary to determine which kind of hazard is dominant in certain eruptions. So it is necessary to simulate all associated hazards in one model. Actually, effort has already been put on developing more comprehensive plume models. For example, a large-particle module (LPM) was added to ATHAM to track the paths of rocky particles (pyroclastic or tephra) within the plume and predict where these particles fall \citep{kobs2009modeling}. We were also motivated by such an evolution of plume modeling to choose SPH as our numerical tool. Besides its ability in dealing with interfaces for multiphase flows, as mentioned in the introduction section, SPH method has good extensibility and adding new physics and phases requires much less modification of the code compared with mesh based methods. Last but not least, the dramatic development of computational power makes it possible to establish a comprehensive model. While current computational capacity may not allow us to have a fully comprehensive model, the easy-extension feature of SPH makes it convenient to keep adding new physics into the model when necessary and computationally feasible. 
+Currently existing 3D models focus on certain aspect of the volcanic plume (PDAC on pyroclastic flow, ATHAM on microphysics, and SK-3D on entrainment with higher resolution and higher order of accuracy) and hence, naturally, different assumptions were made in these models. However, these different aspects of volcanic plumes are not independent, but are actually coupled. For example, it has been illustrated by \cite{cerminara2016large} that gas-particle non-equilibrium would introduce a previously unrecognized jet-dragging effect, which imposes great influence on plume development, especially for weak plumes. In addition, there is no absolute boundary to determine which kind of hazard is dominant in certain eruptions. So it is necessary to simulate all associated hazards in one model. Actually, effort has already been put on developing more comprehensive plume models. For example, a large-particle module (LPM) was added to ATHAM to track the paths of rocky particles (pyroclastic or tephra) within the plume and predict where these particles fall \citep{kobs2009modeling}. We were also motivated by such an evolution of plume modeling to choose SPH as our numerical tool. Besides its ability in dealing with interfaces for multiphase flows, as mentioned in the introduction section, SPH method has good extensibility and adding new physics and phases requires much less modification of the code compared with mesh based methods. Last but not least, the dramatic development of computational power makes it possible to establish a comprehensive model. While current computational capacity may not allow us to have a fully comprehensive model, the easy-extension feature of SPH makes it convenient to keep adding new physics into the model when necessary and computationally feasible. 
 
 We have presented in this paper an initial effort and results towards developing a first principle based plume model with comprehensive physics, adopting proper numerical tools and high performance computing. More advanced numerical techniques, such as adaptive particle size, Godunov-SPH, semi-explicit time advancing scheme and better data management strategies and algorithms are on our list to exploit in the future. In the near future, effect of wind field will be take into account. Our code will also be made available in the open source form for the community to enhance.
 %In all existing 3D plume models, numerical calculations are performed on a non-uniform (vertically and horizontally stretched) grid, with different grid resolutions and domain sizes. However, implementation of different resolution in SPH methods is not straight forward and requires more work.
@@ -1070,7 +1069,13 @@ The Plume-SPH code, together with a user manual providing instructions for insta
     \label{appfig:1D-shock-tests-verification}
 \end{figure}
 
-Particles distribute irregularly in SPH simulation results. To adapt post processing originally proposed for mesh-based method, we need to project simulation results onto a pre-defined regular mesh. Fig. \ref{appfig:1D-shock-tests-verification} shows the procedure for posting process. 
+Particles distribute irregularly in SPH simulation results. To adapt post processing originally proposed for mesh-based method, we need to project simulation results onto a pre-defined regular mesh. As shown in Fig. \ref{appfig:1D-shock-tests-verification}, the basic steps for such projection are:
+\begin{itemize}
+\item obtain raw simulation results carried by particles that irregularly distribute in the space
+\item create regular grids
+\item search for neighbour paricles for each node of the regular grids.
+\item interpolate physical quanties from neighbour particle onto corresponding node of regular grids according to Eq. (\ref{eq:SPH-fundamental-principle})
+\end{itemize}
 
 %
 %\subsection{}     %% Appendix A1, A2, etc.

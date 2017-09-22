@@ -54,7 +54,7 @@ Cao, Z., Patra, A., and Jones, M.: Data Management and Volcano Plume Simulation
   Neri}]{carcano2013semi}
 Carcano, S., Bonaventura, L., Esposti~Ongaro, T., and Neri, A.: A
   semi-implicit, second-order-accurate numerical model for multiphase
-  underexpanded volcanic jets, Geosci Model Dev., 6, 1905--1924, 2013.
+  underexpanded volcanic jets, Geosci. Model Dev., 6, 1905--1924, 2013.
 
 \bibitem[{Carey and Sigurdsson(1982)}]{carey1982influence}
 Carey, S.~N. and Sigurdsson, H.: Influence of particle aggregation on
@@ -68,7 +68,7 @@ Cebeci, T.: Analysis of turbulent flows with computer programs,
 \bibitem[{Cerminara et~al.(2016{\natexlab{a}})Cerminara, Esposti~Ongaro, and
   Berselli}]{cerminara2016ashee}
 Cerminara, M., Esposti~Ongaro, T., and Berselli, L.: ASHEE-1.0: a compressible,
-  equilibrium-Eulerian model for volcanic ash plumes, Geosci Model Dev., 9,
+  equilibrium-Eulerian model for volcanic ash plumes, Geosci. Model Dev., 9,
   697--730, 2016{\natexlab{a}}.
 
 \bibitem[{Cerminara et~al.(2016{\natexlab{b}})Cerminara, Esposti~Ongaro, and
@@ -121,12 +121,12 @@ de' Michieli~Vitturi, M.: PlumeMoM,
 
 \bibitem[{Degruyter and Bonadonna(2012)}]{degruyter2012improving}
 Degruyter, W. and Bonadonna, C.: Improving on mass flow rate estimates of
-  volcanic eruptions, Geophys Res. Lett, 39, 2012.
+  volcanic eruptions, Geophys. Res. Lett., 39, 2012.
 
 \bibitem[{de'Michieli Vitturi et~al.(2015)de'Michieli Vitturi, Neri, and
   Barsotti}]{de2015plume}
 de'Michieli Vitturi, M., Neri, A., and Barsotti, S.: PLUME-MoM 1.0: A new
-  integral model of volcanic plumes based on the method of moments, Geosci
+  integral model of volcanic plumes based on the method of moments, Geosci.
   Model Dev., 8, 2447--2463, 2015.
 
 \bibitem[{Devenish(2013)}]{devenish2013using}
@@ -169,7 +169,7 @@ Ferrari, A., Dumbser, M., Toro, E.~F., and Armanini, A.: A new 3D parallel SPH
 
 \bibitem[{Folch et~al.(2016)Folch, Costa, and Macedonio}]{folch2016fplume}
 Folch, A., Costa, A., and Macedonio, G.: FPLUME-1.0: An integral volcanic plume
-  model accounting for ash aggregation, Geosci Model Dev., 9, 431, 2016.
+  model accounting for ash aggregation, Geosci. Model Dev., 9, 431, 2016.
 
 \bibitem[{George et~al.(1977)George, Alpert, and
   Tamanini}]{george1977turbulence}
@@ -185,7 +185,7 @@ Gerlach, D., Tomar, G., Biswas, G., and Durst, F.: Comparison of
 
 \bibitem[{Gingold and Monaghan(1977)}]{gingold1977smoothed}
 Gingold, R.~A. and Monaghan, J.~J.: Smoothed particle hydrodynamics: theory and
-  application to non-spherical stars, Mon Not. R. Astron. Soc., 181, 375--389,
+  application to non-spherical stars, Mon. Not. R. Astron. Soc., 181, 375--389,
   1977.
 
 \bibitem[{Gopala and van Wachem(2008)}]{gopala2008volume}
@@ -281,7 +281,7 @@ Monaghan, J.: On the problem of penetration in particle methods, J. Comput.
   Phys., 82, 1--15, 1989.
 
 \bibitem[{Monaghan(2002)}]{monaghan2002sph}
-Monaghan, J.: SPH compressible turbulence, Mon Not. R. Astron. Soc., 335,
+Monaghan, J.: SPH compressible turbulence, Mon. Not. R. Astron. Soc., 335,
   843--852, 2002.
 
 \bibitem[{Monaghan(2005)}]{monaghan2005smoothed}
@@ -306,7 +306,7 @@ Monaghan, J. and Rafiee, A.: A simple SPH algorithm for multi-fluid flow with
   71, 537--561, 2013.
 
 \bibitem[{Monaghan(1992)}]{monaghan1992smoothed}
-Monaghan, J.~J.: Smoothed particle hydrodynamics, Annu. Rev. Astron. Astr, 30,
+Monaghan, J.~J.: Smoothed particle hydrodynamics, Annu. Rev. Astron. Astr., 30,
   543--574, 1992.
 
 \bibitem[{Monaghan(2011)}]{monaghan2011turbulence}
@@ -353,7 +353,7 @@ Price, D.~J.: Smoothed particle hydrodynamics and magnetohydrodynamics, J.
 
 \bibitem[{Ritchie and Thomas(2001)}]{ritchie2001multiphase}
 Ritchie, B.~W. and Thomas, P.~A.: Multiphase smoothed-particle hydrodynamics,
-  Mon Not. R. Astron. Soc., 323, 743--756, 2001.
+  Mon. Not. R. Astron. Soc., 323, 743--756, 2001.
 
 \bibitem[{Rosswog(2009)}]{rosswog2009astrophysical}
 Rosswog, S.: Astrophysical smooth particle hydrodynamics, New Astron. Rev., 53,
@@ -376,7 +376,7 @@ Suzuki, Y. and Koyaguchi, T.: A three-dimensional numerical simulation of
 
 \bibitem[{Suzuki and Koyaguchi(2010)}]{suzuki2010numerical}
 Suzuki, Y. and Koyaguchi, T.: Numerical determination of the efficiency of
-  entrainment in volcanic eruption columns, Geophys Res. Lett, 37, 2010.
+  entrainment in volcanic eruption columns, Geophys. Res. Lett., 37, 2010.
 
 \bibitem[{Suzuki and Koyaguchi(2013)}]{suzuki20133d}
 Suzuki, Y.~J. and Koyaguchi, T.: 3D numerical simulation of volcanic eruption
@@ -405,8 +405,8 @@ Taddeucci, J., Scarlato, P., Montanaro, C., Cimarelli, C., Del~Bello, E.,
 \bibitem[{Textor et~al.(2003)Textor, Graf, Herzog, and
   Oberhuber}]{textor2003injection}
 Textor, C., Graf, H.-F., Herzog, M., and Oberhuber, J.: Injection of gases into
-  the stratosphere by explosive volcanic eruptions, Journal of Geophysical
-  Research: Atmospheres (1984--2012), 108, 2003.
+  the stratosphere by explosive volcanic eruptions, J. Geophys. Res-Atmos.
+  (1984--2012), 108, 2003.
 
 \bibitem[{Textor et~al.(2006{\natexlab{a}})Textor, Graf, Herzog, Oberhuber,
   Rose, and Ernst}]{textor2006volcanic2}
@@ -426,8 +426,7 @@ Textor, C., Graf, H.-F., Herzog, M., Oberhuber, J.~M., Rose, W.~I., and Ernst,
   Trautmann}]{trentmann2002simulation}
 Trentmann, J., Andreae, M., Graf, H.-F., Hobbs, P., Ottmar, R., and Trautmann,
   T.: Simulation of a biomass-burning plume: Comparison of model results with
-  observations, Journal of Geophysical Research: Atmospheres (1984--2012), 107,
-  AAC--5, 2002.
+  observations, J. Geophys. Res-Atmos. (1984--2012), 107, AAC--5, 2002.
 
 \bibitem[{Unverdi and Tryggvason(1992)}]{unverdi1992front}
 Unverdi, S.~O. and Tryggvason, G.: A front-tracking method for viscous,

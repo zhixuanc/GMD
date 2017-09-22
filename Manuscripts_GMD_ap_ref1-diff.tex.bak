@@ -700,7 +700,7 @@ Which is a special case of Eq. (\ref{eq:CSP-function-approximation-1d}). For the
 That is to say, the same density updating equation can be applied for both phases and no additional numerical treatment needed to locate where the interface is.
 
 \begin{figure}
-\includegraphics[width=12cm]{Interface.png}
+\includegraphics[width=12cm]{Interface}
 \caption{In the left figure, the blue particles (phaseID=1) represent air particles the red ones (phaseID=2) represent erupted material. The right figure shows corresponding mass fraction. Mass fraction are evaluated based on Eq. (\ref{eq:gov-sph-d1}) and Eq. (\ref{eq:gov-sph-d1}) without any other interface track or capture method.}
 \label{fig:SPH-multiple-density}
 \end{figure}
