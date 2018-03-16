@@ -1,0 +1,80 @@
+\documentclass[10pt,a4paper]{article}
+%\documentclass[10pt,a4paper]{beamer}
+%\usepackage[utf8]{inputenc}
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{graphicx}
+\usepackage{subfigure}
+\usepackage[left=2cm,right=2cm,top=2cm,bottom=2cm]{geometry}
+\usepackage{kpfonts}
+\usepackage[numbers]{natbib}
+%other options include: round, curly, angle, or default options
+
+\usepackage{media9}
+\begin{document}
+\author{\Large \textbf{by Zhixuan Cao et al.}}
+
+\title{ \Large{ Authors' reply to the comments by Anonymous Referee (Referee \#2) of the manuscript gmd-2017-119} \\
+\LARGE \textbf{Plume-SPH 1.0: A three-dimensional, dusty-gas volcanic plume model based on smoothed particle hydrodynamics}}
+
+\date{\vspace{-5ex}}
+
+\maketitle
+The comments by the reviewer are recited in italics, followed by our reply in upright font. Equation, section, and figure numbers that  in our response are corresponding to these in the original 
+version of GMD discussion paper. \\[12pt]
+
+\textbf{\large General Comments}
+
+\textit{After reading the paper, I think the proposed method is highly detailed and the type of discretization properly described.} 
+
+We would like to thank the reviewer for carefully reading our work and giving constructive comments.
+We have revised the manuscript as shown in the supplemental PDF file, and we hope that we have dealt with all suggestions in an adequate manner. The revised manuscript is also attached.
+ 
+On behalf of all co-authors. \\[1pt]
+
+The following are our responses to reviewer's specific comments. Modifications are made accordingly in the revised manuscript. \\[12pt]
+
+\textbf{\large Specific comments}
+
+\textit{1. Please add the recent papers, which I consider, are related to your research: }
+
+\textit{(a) Costa, A., Suzuki, Y., $\&$ Koyaguchi, T. (2018). Understanding the plume dynamics of explosive super-eruptions. Nature communications, 9(1), 654.}
+
+\textit{(b) Terray, L., Gauthier, P. J., Salerno, G., Caltabiano, T., Spina, A. L., Sellitto, P., $\&$ Briole, P. (2018). A New Degassing Model to Infer Magma Dynamics from Radioactive Disequilibria in Volcanic Plumes. Geosciences, 8(1), 27.}
+
+Thanks for pointing out the most recent progress in volcanic plume modeling. 
+Work by \citet{costa2018understanding} is a strong backup for the necessarity of developing more comprehensive 3D computational model. We also came up with some application ideas for Plume-SPH after reading this paper. Citation of this paper is added in "Introduction" section to emphasize the advantage of developing more comprehensive plume model based on SPH.
+
+We have been considering coupling volcanic plume model with magma reservoir model. It is critical for any plume simulation to use more accurate eruption conditions, which might be obtained from magma reservoir model. Thanks for pointing out a new degassing model to infer magma dynamics in volcanic plumes \cite{terray2018new}. Comments regarding coupling volcanic plume model with magma reservoir model is added in conclusion section of this paper along with proper citation.
+\\[3pt]
+
+\textit{It would be nice to provide a theoretical bound for the computational effort of your method for a single simulation step and the numerical-grid resolution. You can make use of, for instance, the number of long-computations (e.g., matrix- vector products). Then, please provide a theoretical bound for such value when computations are performed across different processors.
+}
+
+My understanding on what does the reviewer mean by "theoretical bound for computational effort" is the time complexity. Apologize if we misunderstood that term. 
+
+Without accounting for detailed algorithm, the time complexity for raw SPH method is $O(NN)$. Where, $N$ is the total number of particles (SPH particles are essentially discretization points and equivalent to grids in mesh-based methods). By adopting background mesh and compact-supported kernel function, the time complexity will be reduced to $O(MN)$. Where $M$ is the average of number of particles within the compact support of kernel function. Please be noted that number of particles within the compact support of kernel function is not constant in our case. 
+
+When computations are performed across different processors, theoretically speaking, the total computational time will be $(s+\frac{p}{n}+\bar{p})$. Where $(s+p)\sim O(MN)$ is sequential computational time with $p$ representing computation that parallelizable and $s$ representing computation that can not be parallelized. $n$ is total number of processors. $\bar{p}$ is extra computation introduced by parallelization, for example, 
+unecessary duplicating work, communication overhead, time to split and combine.
+
+It requires analyzing on detailed algorithms to obtain more accurate theorical bound. We admit that such theoretical time complexity would be very helpful for future performance optimiztion. However, considering HPC is not the major focus of this paper, we decided to reserve this topic for future research. We thanks reviewer again for proposing this idea.\\[3pt]
+
+\textit{It is not clear for me how the parallelization is performed, for instance, for a given time, do you split the domain across different processors? in such case, what constraints must be satisfied at each local domain in order to guaranty a consistent numerical solution of your equations?. Other possibility is to speed-up matrix computations, is this your case? or both?}
+
+The parallelization is not covered with enough details in this paper as it has been addressed in a separate paper \cite {cao2017data}. Sorry for confusing you. The parallelization is achieved only by splitting computational domain (Fig. 2(c) in GMD discussion paper shows a typical domain decomposition). No matrix computation is involved in SPH scheme, so there is no parallelization regarding solving matrix in our case.
+For any subdomain, information from its neighbouring subdomains is required when updating physical quantities.   To guarantee consistency, data is synchronized after each updating of physical quantity.
+
+To address your questions and clean up confusions, we made major revision in section 3.10 (is section 3.9 in the revised manuscript). In addition, portion of our response to reviewer's second comments is also added in section 3.10.
+ 
+We thanks reviewer again for the careful reading and constructive comments.\\[12pt]
+
+\textbf{\large Major adjustments of the manuscripts}
+
+Here is a summary on major adjustments made in the revised manuscript: 
+Major revision is made in "Parallellism and performance" section (sectiom 3.10 in original manuscript and 3.9 in the revised manuscript). 
+
+\bibliographystyle{plainnat}
+\bibliography{Reference}
+\end{document}
