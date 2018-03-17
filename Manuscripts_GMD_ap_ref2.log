@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  17 MAR 2018 13:35
+This is pdfTeX, Version 3.14159265-2.6-1.40.15 (TeX Live 2014) (preloaded format=pdflatex 2014.5.25)  17 MAR 2018 15:48
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -1019,7 +1019,7 @@ f strong.eps>
 (epstopdf)             \includegraphics on input line 712.
 Package epstopdf Info: Output file is already uptodate.
 
-<strong-eps-converted-to.pdf, id=653, 449.68pt x 311.1625pt>
+<strong-eps-converted-to.pdf, id=654, 449.68pt x 311.1625pt>
 File: strong-eps-converted-to.pdf Graphic file (type pdf)
 
 <use strong-eps-converted-to.pdf>
@@ -1036,7 +1036,7 @@ o.pdf weak_scale.eps>
 (epstopdf)             \includegraphics on input line 718.
 Package epstopdf Info: Output file is already uptodate.
 
-<weak_scale-eps-converted-to.pdf, id=654, 450.68375pt x 312.16624pt>
+<weak_scale-eps-converted-to.pdf, id=655, 450.68375pt x 312.16624pt>
 File: weak_scale-eps-converted-to.pdf Graphic file (type pdf)
 
 <use weak_scale-eps-converted-to.pdf>
@@ -1054,7 +1054,7 @@ Package epstopdf Info: Source file: <adj_vs_no.eps>
 (epstopdf)             \includegraphics on input line 726.
 Package epstopdf Info: Output file is already uptodate.
 
-<adj_vs_no-eps-converted-to.pdf, id=655, 456.70625pt x 309.155pt>
+<adj_vs_no-eps-converted-to.pdf, id=656, 456.70625pt x 309.155pt>
 File: adj_vs_no-eps-converted-to.pdf Graphic file (type pdf)
 
 <use adj_vs_no-eps-converted-to.pdf>
@@ -1446,7 +1446,7 @@ type1/public/amsfonts/cm/cmsy9.pfb></usr/local/texlive/2014/texmf-dist/fonts/ty
 pe1/urw/helvetic/uhvr8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw
 /times/utmb8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utm
 r8a.pfb></usr/local/texlive/2014/texmf-dist/fonts/type1/urw/times/utmri8a.pfb>
-Output written on Manuscripts_GMD_ap_ref2.pdf (41 pages, 3907905 bytes).
+Output written on Manuscripts_GMD_ap_ref2.pdf (41 pages, 3907930 bytes).
 PDF statistics:
  1163 PDF objects out of 1200 (max. 8388607)
  1023 compressed objects within 11 object streams

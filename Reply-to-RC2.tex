@@ -52,7 +52,7 @@ We have been considering coupling volcanic plume model with magma reservoir mode
 \textit{It would be nice to provide a theoretical bound for the computational effort of your method for a single simulation step and the numerical-grid resolution. You can make use of, for instance, the number of long-computations (e.g., matrix- vector products). Then, please provide a theoretical bound for such value when computations are performed across different processors.
 }
 
-My understanding on what does the reviewer mean by "theoretical bound for computational effort" is the time complexity. Apologize if we misunderstood that term. 
+Our understanding on what does the reviewer mean by "theoretical bound for computational effort" is the time complexity. Apologize if we misunderstood that term. 
 
 Without accounting for detailed algorithm, the time complexity for raw SPH method is $O(NN)$. Where, $N$ is the total number of particles (SPH particles are essentially discretization points and equivalent to grids in mesh-based methods). By adopting background mesh and compact-supported kernel function, the time complexity will be reduced to $O(MN+mN)$. Where $m$ is the average of number of particles within the compact support of kernel function, $M$ is number of particles among which neighbour searching is carried out. Please be noted that number of particles within the compact support of kernel function is not constant in our case. 
 
