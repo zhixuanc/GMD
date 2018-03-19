@@ -11,8 +11,8 @@ Oscar Agertz, Ben Moore, Joachim Stadel, Doug Potter, Francesco Miniati, Justin
   Read, Lucio Mayer, Artur Gawryszczak, Andrey Kravtsov, {\AA}ke Nordlund,
   et~al.
 \newblock Fundamental differences between sph and grid methods.
-\newblock \emph{Mon Not. R. Astron. Soc.}, 380\penalty0 (3):\penalty0 963--978,
-  2007.
+\newblock \emph{Mon. Not. R. Astron. Soc.}, 380\penalty0 (3):\penalty0
+  963--978, 2007.
 
 \bibitem[Behjati et~al.(2017)Behjati, Kashani, and Biggs]{behjati2017modelling}
 H~Elekaei Behjati, M~Navvab Kashani, and MJ~Biggs.
@@ -37,7 +37,7 @@ Zhixuan Cao, Abani Patra, and Matthew Jones.
 Seung-Hoon Cha, Shu-Ichiro Inutsuka, and Sergei Nayakshin.
 \newblock Kelvin--helmholtz instabilities with godunov smoothed particle
   hydrodynamics.
-\newblock \emph{Mon Not. R. Astron. Soc.}, 403\penalty0 (3):\penalty0
+\newblock \emph{Mon. Not. R. Astron. Soc.}, 403\penalty0 (3):\penalty0
   1165--1174, 2010.
 
 \bibitem[Costa et~al.(2016)Costa, Suzuki, Cerminara, Devenish, Esposti~Ongaro,
@@ -89,8 +89,8 @@ Daniel~J Price.
 \bibitem[Ritchie and Thomas(2001)]{ritchie2001multiphase}
 Benedict~W Ritchie and Peter~A Thomas.
 \newblock Multiphase smoothed-particle hydrodynamics.
-\newblock \emph{Mon Not. R. Astron. Soc.}, 323\penalty0 (3):\penalty0 743--756,
-  2001.
+\newblock \emph{Mon. Not. R. Astron. Soc.}, 323\penalty0 (3):\penalty0
+  743--756, 2001.
 
 \bibitem[Swegle et~al.(1995)Swegle, Hicks, and Attaway]{swegle1995smoothed}
 JW~Swegle, DL~Hicks, and SW~Attaway.
@@ -101,8 +101,8 @@ JW~Swegle, DL~Hicks, and SW~Attaway.
   Couchman]{wadsley2008treatment}
 JW~Wadsley, G~Veeravalli, and HMP Couchman.
 \newblock On the treatment of entropy mixing in numerical cosmology.
-\newblock \emph{Mon Not. R. Astron. Soc.}, 387\penalty0 (1):\penalty0 427--438,
-  2008.
+\newblock \emph{Mon. Not. R. Astron. Soc.}, 387\penalty0 (1):\penalty0
+  427--438, 2008.
 
 \bibitem[Zhu et~al.()Zhu, Zou, Chen, Wang, and Liu]{zhuimproved}
 GX~Zhu, L~Zou, Z~Chen, AM~Wang, and MB~Liu.

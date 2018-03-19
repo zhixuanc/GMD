@@ -1,4 +1,4 @@
-\documentclass[10pt,a4paper]{article}
+\documentclass{article}
 %\documentclass[10pt,a4paper]{beamer}
 %\usepackage[utf8]{inputenc}
 \usepackage{amsmath}
@@ -21,7 +21,7 @@
 \date{\vspace{-5ex}}
 
 \maketitle
-The comments by the reviewer are recited in italics, followed by our reply in upright font. Equation, section, and figure numbers that  in our response are corresponding to these in the original 
+The comments by the reviewer are recited in italics, followed by our reply in upright font. Equation, section, and figure numbers   in our response are corresponding to these in the original 
 version of GMD discussion paper. \\[12pt]
 
 \textbf{\large General Comments}
@@ -43,38 +43,65 @@ The following are our responses to reviewer's specific comments. Modifications a
 
 \textit{(b) Terray, L., Gauthier, P. J., Salerno, G., Caltabiano, T., Spina, A. L., Sellitto, P., $\&$ Briole, P. (2018). A New Degassing Model to Infer Magma Dynamics from Radioactive Disequilibria in Volcanic Plumes. Geosciences, 8(1), 27.}
 
-Thanks for pointing out the most recent progress in volcanic plume modeling. 
-Work by \citet{costa2018understanding} is a strong backup for the necessarity of developing more comprehensive 3D computational model. We also came up with some application ideas for Plume-SPH after reading this paper. Citation of this paper is added in "Introduction" section to emphasize the advantage of developing more comprehensive plume model based on SPH.
+Thanks for pointing out some of the more recent work on volcanic plume modeling. 
+Work by \citet{costa2018understanding} motivates the development of more comprehensive 3D computational models like those in this paper. Reading this paper has inspired new application ideas for Plume-SPH. Citation of this paper is added in "Introduction" section to emphasize the advantage of developing more comprehensive plume model based on SPH.
 
-We have been considering coupling volcanic plume model with magma reservoir model. It is critical for any plume simulation to use more accurate eruption conditions, which might be obtained from magma reservoir model. Thanks for pointing out a new degassing model to infer magma dynamics in volcanic plumes \cite{terray2018new}. Comments regarding coupling volcanic plume model with magma reservoir model is added in conclusion section of this paper along with proper citation.
+We have considered coupling a volcanic plume model with a magma reservoir model. It is critical for any plume simulation to use more accurate eruption conditions, which might be obtained from a magma reservoir model. Thank you for pointing out the new degassing model to infer magma dynamics in volcanic plumes \cite{terray2018new}. Comments regarding coupling volcanic plume model with magma reservoir model are added in conclusion section of this paper along with proper citation.
 \\[3pt]
 
 \textit{It would be nice to provide a theoretical bound for the computational effort of your method for a single simulation step and the numerical-grid resolution. You can make use of, for instance, the number of long-computations (e.g., matrix- vector products). Then, please provide a theoretical bound for such value when computations are performed across different processors.
 }
 
-Our understanding on what does the reviewer mean by "theoretical bound for computational effort" is the time complexity. Apologize if we misunderstood that term. 
+Our interpretation of  the reviewer's request for "theoretical bound for computational effort" is the operational complexity of the algorithms used. Apologize if we  have misunderstood . 
 
-Without accounting for detailed algorithm, the time complexity for raw SPH method is $O(NN)$. Where, $N$ is the total number of particles (SPH particles are essentially discretization points and equivalent to grids in mesh-based methods). By adopting background mesh and compact-supported kernel function, the time complexity will be reduced to $O(MN+mN)$. Where $m$ is the average of number of particles within the compact support of kernel function, $M$ is number of particles among which neighbour searching is carried out. Please be noted that number of particles within the compact support of kernel function is not constant in our case. 
+Without accounting for the detailed algorithm, the complexity for raw SPH method is $O(N*N)$ operations. Where, $N$ is the total number of particles (SPH particles are essentially equivalent to discretization points  in mesh-based methods). By adopting a background mesh and a compact-supported kernel function, the  complexity will be reduced to $O(MN+mN)$. Where $m$ is the average of number of particles within the compact support of the kernel function, $M$ is number of particles among which neighbor searches are carried out. Please note that number of particles within the compact support of the kernel function is not constant in our case. 
 
-When computations are performed across different processors, theoretically speaking, the total computational time will be $(s+\frac{p}{n}+\bar{p})$. Where $(s+p)\sim O(MN+mN)$ is sequential computational time with $p$ representing computation that parallelizable and $s$ representing computation that can not be parallelized. $n$ is total number of processors. $\bar{p}$ is extra computation introduced by parallelization, for example, 
-unecessary duplicating work, communication overhead, time to split and combine.
+When computations are performed across different processors, theoretically speaking, the total computational time will be $(s+\frac{p}{n}+\bar{p})$,  where $(s+p)$(time needed for$ \sim O(MN+mN)$ operations) is total sequential computational time with $p$ representing computation that is parallelizable and $s$ represents computation that can not be parallelized,  $n$ is total number of processors and $\bar{p}$ is extra computation and communication introduced by parallelization, for example, 
+unnecessary duplication of work, communication overhead, time to split and combine.
 
-It requires analyzing on detailed algorithms to obtain more accurate theorical bound. We admit that such theoretical time complexity would be very helpful for future performance optimiztion. However, considering HPC is not the major focus of this paper, we decided to reserve this topic for future research. We thanks reviewer again for proposing this idea.\\[3pt]
+It requires complete analysis of the detailed algorithms and instrumented data gathering to obtain  more accurate theoretical and achieved bounds. We agree that such  time complexity analysis would be very helpful for future performance optimization. However, considering HPC is not the major focus of this paper, we would like to reserve this topic for future research. We thank the reviewer again for proposing this idea.\\[3pt]
 
-\textit{It is not clear for me how the parallelization is performed, for instance, for a given time, do you split the domain across different processors? in such case, what constraints must be satisfied at each local domain in order to guaranty a consistent numerical solution of your equations?. Other possibility is to speed-up matrix computations, is this your case? or both?}
+\textit{It is not clear for me how the parallelization is performed, for instance, for a given time, do you split the domain across different processors? in such case, what constraints must be satisfied at each local domain in order to guarantee a consistent numerical solution of your equations?. Other possibility is to speed-up matrix computations, is this your case? or both?}
 
-The parallelization is not covered with enough details in this paper as it has been addressed in a separate paper \cite {cao2017data}. Sorry for confusing you. The parallelization is achieved only by splitting computational domain (Fig. 2(c) in GMD discussion paper shows a typical domain decomposition). No matrix computation is involved in SPH scheme, so there is no parallelization regarding solving matrix in our case.
-For any subdomain, information from its neighbouring subdomains is required when updating physical quantities.   To guarantee consistency, data is synchronized after each updating of physical quantity.
+The parallelization is not covered with enough details in this paper as it has been addressed in a separate paper \cite {cao2017data}.  The parallelization is achieved only by splitting the computational domain (Fig. 2(c) in GMD discussion paper shows a typical domain decomposition). No matrix computation is involved in the SPH scheme, so there is no parallelization regarding solving the matrix in our case.
+For any subdomain, information from its neighboring subdomains is required when updating physical quantities.   To guarantee consistency, data is synchronized after each updates of physical quantities in the shared (or "halo") regions.
 
-To address your questions and clean up confusions, we made major revision in section 3.10 (is section 3.9 in the revised manuscript). In addition, portion of our response to reviewer's second comments is also added in section 3.10.
+To address your questions and clean up confusion, we made a major revision in section 3.10 (is section 3.9 in the revised manuscript). In addition, portion of our response to reviewer's second comments are also added in section 3.10.
  
-We thanks reviewer again for the careful reading and constructive comments.\\[12pt]
+We thank reviewer again for the careful reading and constructive comments.\\[12pt]
 
 \textbf{\large Major adjustments of the manuscripts}
 
 Here is a summary on major adjustments made in the revised manuscript: 
-Major revision is made in "Parallellism and performance" section (sectiom 3.10 in original manuscript and 3.9 in the revised manuscript). 
+Major revision is made in "Parallelism and performance" section (section 3.10 in original manuscript and 3.9 in the revised manuscript). 
+\begin{thebibliography}{3}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
 
-\bibliographystyle{plainnat}
-\bibliography{Reference}
+\bibitem[Cao et~al.(2017)Cao, Patra, and Jones]{cao2017data}
+Zhixuan Cao, Abani Patra, and Matthew Jones.
+\newblock Data management and volcano plume simulation with parallel sph method
+  and dynamic halo domains.
+\newblock \emph{Procedia Comput. Sci.,}, 108:\penalty0 786--795, 2017.
+
+\bibitem[Costa et~al.(2018)Costa, Suzuki, and
+  Koyaguchi]{costa2018understanding}
+Antonio Costa, Yujiro Suzuki, and Takehiro Koyaguchi.
+\newblock Understanding the plume dynamics of explosive super-eruptions.
+\newblock \emph{Nature communications}, 9\penalty0 (1):\penalty0 654, 2018.
+
+\bibitem[Terray et~al.(2018)Terray, Gauthier, Salerno, Caltabiano, Spina,
+  Sellitto, and Briole]{terray2018new}
+Luca Terray, Pierre-J Gauthier, Giuseppe Salerno, Tommaso Caltabiano,
+  Alessandro~La Spina, Pasquale Sellitto, and Pierre Briole.
+\newblock A new degassing model to infer magma dynamics from radioactive
+  disequilibria in volcanic plumes.
+\newblock \emph{Geosciences}, 8\penalty0 (1):\penalty0 27, 2018.
+
+\end{thebibliography}
+%\bibliographystyle{plainnat}
+%\bibliography{Reference}
 \end{document}
