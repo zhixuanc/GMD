@@ -658,7 +658,7 @@ That is to say, the same density updating equation can be applied for both phase
 \begin{figure}
 \DIFdelbeginFL %DIFDELCMD < \includegraphics[width=12cm]{Interface.png}
 %DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \includegraphics[width=12cm]{Interface}
+\DIFdelendFL \DIFaddbeginFL \includegraphics[width=12cm]{Fig1}
 \DIFaddendFL \caption{In the left figure, the blue particles (phaseID=1) represent air particles the red ones (phaseID=2) represent erupted material. The right figure shows corresponding mass fraction. Mass fraction are evaluated based on Eq. (\ref{eq:gov-sph-d1}) and Eq. (\DIFdelbeginFL \DIFdelFL{\ref{eq:gov-sph-d1}}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{\ref{eq:gov-sph-d2}}\DIFaddendFL ) without any other interface track or capture method.}
 \label{fig:SPH-multiple-density}
 \end{figure}
@@ -910,7 +910,7 @@ As simulations progress, changes in position and physical quantities of real par
 \DIFdelbegin \DIFdel{Where }\DIFdelend \DIFaddbegin \DIFadd{where }\DIFaddend $CFL_p$ is a safety coefficient which has similar function as the normal $CFL$ number. Too small $CFL_p$ would slow down simulation while too large $CFL_p$ would lose its ability of mitigate numerical fluctuation near the boundary. The proper $CFL_p$ is determined by \DIFaddbegin \DIFadd{a }\DIFaddend series of simulation tests.
 
 \begin{figure}
-\includegraphics[width=18cm]{t120_bc_proc}
+\includegraphics[width=18cm]{Fig2}
 \caption{A cross section view of the simulation domain in $y-z$ plane at 66 seconds. Subfigure $a$ shows the mass fraction. Subfigure $b$ shows all boundary conditions: the dark blue region are occupied by eruption ghost particles with "Ghost particle ID" of 0, the light blue area are occupied by pressure ghost particles with "Ghost particle ID" of 1, the gray area is filled with wall ghost particles with "Ghost particle ID" of 2, "Ghost particle ID" of all real particles are set to 100, they occupy the major portion of the domain in subfigure $b$. Subfigure $c$ shows the cross section view of domain decomposition based on SFC. The simulation is conducted on 12 processors, so there are 12 subdomains in total. The crosss section view shows a portion of them.}
 \label{fig:bc_and_domain_decomp}
 \end{figure}
@@ -938,7 +938,7 @@ More details about the data structure, domain decomposition, load balancing\DIFd
 %DIFDELCMD < %%%
 \DIFdelendFL \DIFaddbeginFL \begin{minipage}{.425\textwidth}
 		\centering
-		\includegraphics[scale=0.45]{strong}
+		\includegraphics[scale=0.45]{Fig3}
 		\DIFaddendFL \caption{Strong scalability test result}
 		\label{fig:strong_scale}
     \DIFdelbeginFL %DIFDELCMD < \end{figure}
@@ -951,7 +951,7 @@ More details about the data structure, domain decomposition, load balancing\DIFd
 		\DIFaddendFL \centering
 		\DIFdelbeginFL %DIFDELCMD < \includegraphics[scale=0.35]{weak_scale}
 %DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \includegraphics[scale=0.45]{weak_scale}
+\DIFdelendFL \DIFaddbeginFL \includegraphics[scale=0.45]{Fig4}
 		\DIFaddendFL \caption{Weak scalability test result}
 		\label{fig:weak_scale}
     \DIFaddbeginFL \end{minipage}%DIF >  
@@ -973,7 +973,7 @@ More details about the data structure, domain decomposition, load balancing\DIFd
 %DIF > 
 \begin{figure}[!t]
 \centering
-\includegraphics[scale=0.35]{adj_vs_no}
+\includegraphics[scale=0.35]{Fig5}
 \caption{The effect of domain adjusting on simulation time. The figure on the top shows execution time without domain adjusting, the figure on the bottom shows execution time with domain adjusting. Different bins represent execution time up to specific physical time indicated by horizontal axis.}
 \label{fig:adj_vs_no}
 \end{figure}
@@ -1014,18 +1014,7 @@ Test 3 is a double expansion test with different initial dnesity.
 
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.325\textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./GSPH-Sod-verification-e}
-    \end{minipage}%DIF > 
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./Sod-verification-e}
-    \end{minipage}%DIF > 
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./d-exp-verification-e}
-    \end{minipage}%DIF >    
+      \includegraphics[width=18cm]{Fig6}%DIF >    
     \caption{\DIFaddFL{Comparison of specific internal energy of simulation results agaist analytical results for shock tube tests. The plots from left to right are corresponding to test 1, test 2 and test 3 respectively.}}
     \label{fig:1D-shock-tests-verification}
 \end{figure}
@@ -1065,80 +1054,50 @@ One overall feature of JPUE is "self-similarity" which means that the evolution 
 \end{table}
 
 \DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \includegraphics[width=8cm]{vel_cross}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.425\textwidth}
-        \centering
-        \DIFaddendFL \includegraphics[width=8cm]{vel_cross}
-    \DIFdelbeginFL %DIFDELCMD < \caption{%
-{%DIFAUXCMD
-\DIFdelFL{Dimensionless velocity distribution across the cross-section.}}
-%DIFAUXCMD
-%DIFDELCMD < \label{fig:JPUE_cross-section_vel}
-%DIFDELCMD < \end{figure}
-%DIFDELCMD < \begin{figure}
-%DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \end{minipage}%DIF > 
-    \begin{minipage}{.425 \textwidth}
-        \centering
-        \DIFaddendFL \includegraphics[width=8cm]{conc_cross}\DIFaddbeginFL ]
-    \end{minipage}%DIF >   
-    \DIFaddendFL \caption{Dimensionless concentration \DIFaddbeginFL \DIFaddFL{and velocity }\DIFaddendFL distribution across the cross-section.}
-    \DIFdelbeginFL %DIFDELCMD < \label{fig:JPUE_cross-section_conc}
+	  \includegraphics[width=16cm]{Fig7}
+    \DIFaddendFL \caption{Dimensionless \DIFaddbeginFL \DIFaddFL{concentration and }\DIFaddendFL velocity distribution across the cross-section.}
+    \DIFdelbeginFL %DIFDELCMD < \label{fig:JPUE_cross-section_vel}
 %DIFDELCMD < %%%
 \DIFdelendFL \DIFaddbeginFL \label{fig:JPUE_cross-section}
 \DIFaddendFL \end{figure}
+\DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \includegraphics[width=8cm]{conc_cross}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Dimensionless concentration distribution across the cross-section.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{fig:JPUE_cross-section_conc}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend 
 
 \DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \includegraphics[width=8cm]{velo_along_axis}
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.425\textwidth}
-        \centering
-        \DIFaddendFL \includegraphics[width=8cm]{velo_along_axis}
-    \DIFdelbeginFL %DIFDELCMD < \caption{%
-{%DIFAUXCMD
-\DIFdelFL{Dimensionless velocity distribution along centraline.}}
-%DIFAUXCMD
-%DIFDELCMD < \label{fig:JPUE_along-axis_vel}
-%DIFDELCMD < \end{figure}
-%DIFDELCMD < \begin{figure}
-%DIFDELCMD < %%%
-\DIFdelendFL \DIFaddbeginFL \end{minipage}%DIF > 
-    \begin{minipage}{.425 \textwidth}
-        \centering
-        \DIFaddendFL \includegraphics[width=8cm]{conc_along_axis}
-    \DIFaddbeginFL \end{minipage}%DIF >   
-    \DIFaddendFL \caption{\DIFdelbeginFL \DIFdelFL{Dimensionless concetration distribution }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{The left plot is normalized jet width (which determined based on velocity) }\DIFaddendFL along \DIFdelbeginFL \DIFdelFL{centraline}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{the centerline}\DIFaddendFL . \DIFaddbeginFL \DIFaddFL{The right plot shows normalized concentration along the centerline.}\DIFaddendFL }
-    \DIFdelbeginFL %DIFDELCMD < \label{fig:JPUE_along-axis_conc}
+	\includegraphics[width=16cm]{Fig8} 
+    \DIFaddendFL \caption{\DIFdelbeginFL \DIFdelFL{Dimensionless }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{The left plot is normalized jet width (which determined based on }\DIFaddendFL velocity\DIFdelbeginFL \DIFdelFL{distribution }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{) }\DIFaddendFL along \DIFdelbeginFL \DIFdelFL{centraline}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{the centerline}\DIFaddendFL . \DIFaddbeginFL \DIFaddFL{The right plot shows normalized concentration along the centerline.}\DIFaddendFL }
+    \DIFdelbeginFL %DIFDELCMD < \label{fig:JPUE_along-axis_vel}
 %DIFDELCMD < %%%
 \DIFdelendFL \DIFaddbeginFL \label{fig:JPUE_along-axis}
 \DIFaddendFL \end{figure}
-%DIF > 
-%DIF > \begin{figure}
-%DIF > \includegraphics[width=8cm]{vel_cross}
-%DIF > \caption{Dimensionless velocity distribution across the cross-section.}
-%DIF > \label{fig:JPUE_cross-section_vel}
-%DIF > \end{figure}
-%DIF > 
-%DIF > \begin{figure}
-%DIF > \includegraphics[width=8cm]{conc_cross}
-%DIF > \caption{Dimensionless concentration distribution across the cross-section.}
-%DIF > \label{fig:JPUE_cross-section_conc}
-%DIF > \end{figure}
-
-%DIF > \begin{figure}
-%DIF > \includegraphics[width=8cm]{velo_along_axis}
-%DIF > \caption{Dimensionless velocity and concentration distribution along centraline.}
-%DIF > \label{fig:JPUE_along-axis_vel}
-%DIF > \end{figure}
-%DIF > \begin{figure}
-%DIF > \includegraphics[width=8cm]{conc_along_axis}
-%DIF > \caption{Dimensionless concetration distribution along centraline.}
-%DIF > \label{fig:JPUE_along-axis_conc}
-%DIF > \end{figure}
-\DIFaddbegin 
+\DIFdelbegin %DIFDELCMD < \begin{figure}
+%DIFDELCMD < \includegraphics[width=8cm]{conc_along_axis}
+%DIFDELCMD < %%%
+%DIFDELCMD < \caption{%
+{%DIFAUXCMD
+\DIFdel{Dimensionless concetration distribution along centraline.}}
+%DIFAUXCMD
+%DIFDELCMD < \label{fig:JPUE_along-axis_conc}
+%DIFDELCMD < \end{figure}
+%DIFDELCMD < %%%
+\DIFdelend
 
 \DIFaddend A three dimensional axisymmetric JPUE which ejects from a round vent is simulated with eruption parameters listed in Table \ref{tab:input_parameters}. Material properties of water are used as material properties for both phases. The results are compared with experiments \citep {george1977turbulence, papanicolaou1988investigations} for \DIFdelbegin \DIFdel{validation }\DIFdelend \DIFaddbegin \DIFadd{verification }\DIFaddend purposes. Experimental data of concentration and velocity distribution across the cross-section were fit into a Gaussian profile \DIFdelbegin \DIFdel{: $\dfrac{\varphi}{\varphi_c}=exp \left[-coef\left( \left(\dfrac{r}{z}\right)^2\right)\right]$ (solid line)by \mbox{%DIFAUXCMD
 \citet{papanicolaou1988investigations}
@@ -1187,7 +1146,7 @@ We also investigated the mixing due to turbulence in JPUE simulation by checking
 %What need to be noticed is that the mass of particle of phase 1 (blue) is 8 time of that of phase 2 (red). It is a trade off between resolution and computational expense to give particle of two phases different particles mass. Both advanced SPH techniques like adaptive particles size and better data management and access strategies need to be exploited to address this issue.
 
 \begin{figure}
-\includegraphics[width=8cm]{JPUE_entrainment.png}
+\includegraphics[width=8cm]{Fig9.png}
 \caption{The left figure shows particle distribution. Particles of phase 1 (blue) are gradually entrained and mixed with erupted particles (red) as jet flows down stream. The right figure shows the mass fraction of erupted material at the moment corresponding to the left figure.}
 %What need to be noticed is that the mass of particle of phase 1 (blue) is 8 time of that of phase 2 (red). It is a trade off between resolution and computational expense to give particle of two phases different particles mass.
 \label{fig:Turb_mixing}
@@ -1240,23 +1199,7 @@ Vertical distribution of temperature, pressure and density is used to establish 
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./mssfrc-Diverging}
-    \end{minipage}%DIF > 
-    \begin{minipage}{.45 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./mssfrc-Diverging-cut}
-    \end{minipage}%DIF > 
-    \\
-    \begin{minipage}{.45 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./gmd-mssfrc-xz}
-    \end{minipage}%DIF >  
-    \begin{minipage}{.45 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./gmd-mssfrc-xz-zoomed}
-    \end{minipage}%DIF >   
+	  \includegraphics[width=16cm]{Fig10}
     \DIFaddendFL \caption{\DIFdelbeginFL \DIFdelFL{Temperature as }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{Mass fraction for $t=500s$ after eruption. Figures on the first row are visualization of SPH simulation results. The figure on the up right corner is visualization of }\DIFaddendFL a \DIFdelbeginFL \DIFdelFL{function }\DIFdelendFL \DIFaddbeginFL \DIFaddFL{slice }\DIFaddendFL of \DIFdelbeginFL \DIFdelFL{height}\DIFdelendFL \DIFaddbeginFL \DIFaddFL{the computational, whose thickness is around $10000m$. The lowest portion of the plume represents erupted material in eruption vent (the underground portition). Figures at the second row show contour of mass fraction and velocity quiver on x-z plane. These figures are plotted utilizing post-processed data (see Appendix \ref{app:project-SPH-grid}). The contour level in the plot are $0.00001, 0.0001, 0.001, 0.1, 0.3, 0.75, 0.95$. The figure on the lower right corner is a zoomed view of velocity quivier showing plume expansion and entrainment of air.}\DIFaddendFL }
     \DIFdelbeginFL %DIFDELCMD < \label{fig:strong_local_temp}
 %DIFDELCMD < %%%
@@ -1273,7 +1216,7 @@ Vertical distribution of temperature, pressure and density is used to establish 
 %DIFDELCMD < \label{fig:strong_local_density}
 %DIFDELCMD < \end{figure}
 %DIFDELCMD < %%%
-\DIFdelend
+\DIFdelend 
 
 \DIFaddbegin \subsubsection{\DIFadd{Global and local variables}}
 \DIFaddend One of the key global quantities of great interest is the altitude to which the plume rises. The top height predicted by our model is around 40 km which agrees with other plume models. For example, the height predicted by PDAC is 42500 m, by SK-3D is 39920 m, by ATHAM is 33392 m, by AHSEE is 36700 m. As for local variables, the profiles of integrated temperature, density, mass fraction of entrained air, gas mass fraction, mass fraction of solid and the radius of the plume as a function of height are compared with existing 3D models in Fig. \ref{fig:strong_local_temp} $\sim$ \ref{fig:strong_local_radius}. To get rid of significant fluctuations in time and space we conducted a time averaging and spatial integration of the dynamic 3D flow fields by following \citet {cerminara2016large}.
@@ -1285,13 +1228,13 @@ The profiles of local variables match well with simulation results of existing 3
 
 \begin{figure}
 \DIFaddbeginFL \center
-\includegraphics[width=7cm]{Temp}
+\includegraphics[width=7cm]{Fig11}
 \caption{\DIFaddFL{Temperature as a function of height}}
 \label{fig:strong_local_temp}
 \end{figure}
 
 \begin{figure}
-\DIFaddendFL \includegraphics[width=15cm]{msfrac}
+\DIFaddendFL \includegraphics[width=15cm]{Fig12}
 \caption{The mass fraction of entrained air, gas, and solid as a function of height.}
 \label{fig:strong_plume_mass_fraction}
 \end{figure}
@@ -1352,13 +1295,13 @@ The profiles of local variables match well with simulation results of existing 3
 %DIFDELCMD < %%%
 \DIFdelend \DIFaddbegin \begin{figure}
 \center
-\includegraphics[width=7cm]{density_strong}
+\includegraphics[width=7cm]{Fig13}
 \caption{\DIFaddFL{Density of the strong plume without wind after reaching its top height}}
 \label{fig:strong_local_density}
 \end{figure}
 \begin{figure}
 \center
-\includegraphics[width=7cm]{radius_strong}
+\includegraphics[width=7cm]{Fig14}
 \caption{\DIFaddFL{Radius of the strong plume without wind after reaching its top height.}}
 \label{fig:strong_local_radius}
 \end{figure}
@@ -1407,18 +1350,7 @@ The Plume-SPH code, together with a user manual providing instructions for insta
 \appendixfigures
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.325\textwidth}
-        \centering
-        \includegraphics[width=0.90 \textwidth]{./Project1}
-    \end{minipage}\DIFaddendFL %
-    \DIFaddbeginFL \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.90 \textwidth]{./Project2}
-    \end{minipage}%DIF > 
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.90 \textwidth]{./Project3}
-    \end{minipage}%DIF >    
+	\includegraphics[width=18cm]{FigA1} 
     \caption{\DIFaddFL{Procedure of projection of simulation results carried by particles onto regular grids. as shown in these figures from left to right: 1) raw data of SPH simulation results (irregularly distributed in space), 2) Add regular mesh, 3) searching for neighbours of each node (the blue SPH particles within the green circle around the red dot). The last step is not shown in these pictures, which is treating each node on the regular mesh as a SPH particle and projecting data on particles onto nodes utilizing "SPH interpolation" ( see Eq. (\ref{eq:SPH-fundamental-principle})).}}
     \label{appfig:1D-shock-tests-verification}
 \end{figure}
@@ -1431,8 +1363,8 @@ The Plume-SPH code, together with a user manual providing instructions for insta
 }\item \DIFadd{interpolate physical quanties from neighbour particle onto corresponding node of regular grids according to Eq. (\ref{eq:SPH-fundamental-principle})
 }\end{itemize}
 
-%DIF > 
-\DIFaddend %\subsection{}     %% Appendix A1, A2, etc.
+\DIFaddend 
+%%\subsection{}     %% Appendix A1, A2, etc.
 %
 %\appendixfigures  %% needs to be added in front of appendix figures in one-column style (\documentclass[acp, manuscript]{copernicus})
 %

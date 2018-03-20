@@ -454,7 +454,7 @@ Which is a special case of Eq. (\ref{eq:CSP-function-approximation-1d}). For the
 That is to say, the same density updating equation can be applied for both phases and no additional numerical treatment needed to locate where the interface is.
 
 \begin{figure}
-\includegraphics[width=12cm]{Interface}
+\includegraphics[width=12cm]{Fig1}
 \caption{In the left figure, the blue particles (phaseID=1) represent air particles the red ones (phaseID=2) represent erupted material. The right figure shows corresponding mass fraction. Mass fraction are evaluated based on Eq. (\ref{eq:gov-sph-d1}) and Eq. (\ref{eq:gov-sph-d2}) without any other interface track or capture method.}
 \label{fig:SPH-multiple-density}
 \end{figure}
@@ -688,18 +688,18 @@ As simulations progress, changes in position and physical quantities of real par
 where $CFL_p$ is a safety coefficient which has similar function as the normal $CFL$ number. Too small $CFL_p$ would slow down simulation while too large $CFL_p$ would lose its ability of mitigate numerical fluctuation near the boundary. The proper $CFL_p$ is determined by a series of simulation tests.
 
 \begin{figure}
-\includegraphics[width=18cm]{t120_bc_proc}
+\includegraphics[width=18cm]{Fig2}
 \caption{A cross section view of the simulation domain in $y-z$ plane at 66 seconds. Subfigure $a$ shows the mass fraction. Subfigure $b$ shows all boundary conditions: the dark blue region are occupied by eruption ghost particles with "Ghost particle ID" of 0, the light blue area are occupied by pressure ghost particles with "Ghost particle ID" of 1, the gray area is filled with wall ghost particles with "Ghost particle ID" of 2, "Ghost particle ID" of all real particles are set to 100, they occupy the major portion of the domain in subfigure $b$. Subfigure $c$ shows the cross section view of domain decomposition based on SFC. The simulation is conducted on 12 processors, so there are 12 subdomains in total. The crosss section view shows a portion of them.}
 \label{fig:bc_and_domain_decomp}
 \end{figure}
 
 \subsection{Parallellism and performance}
-One disadvantage of the 3D model is that it usually takes a much longer time than 1D models to complete one simulation. This disadvantage further prevents doing simulation with finer resolution and accounting for more physics in one model. Non-intrusive uncertainty analysis, which is commonly adopted in hazard forecasting, requires finishing multiple simulations within a given time window. High performance computing is therefore essential. Among existing CPU parallel SPH schemes, most of them focus on neighbor search algorithm and dynamic load balancing \citep {ferrari2009new, crespo2015dualsphysics}. Less attention has been paid to developing more flexible data management schemes for more complicated problems. Motivated by techniques developed for mesh based methods, we develop a complete framework for parallelizing SPH with distrubted memory parallelism (MPI) allowing flexible and efficient data access.
+One disadvantage of the 3D model is that it usually takes a much longer time than 1D models to complete one simulation. This disadvantage further prevents doing simulation with finer resolution and accounting for more physics in one model. Non-intrusive uncertainty analysis, which is commonly adopted in hazard forecasting, requires finishing multiple simulations within a given time window. High performance computing is therefore essential. Among existing CPU parallel SPH schemes, most of them focus on neighbor search algorithm and dynamic load balancing \citep {ferrari2009new, crespo2015dualsphysics}. Less attention has been paid to developing more flexible data management schemes for more complicated problems. Motivated by techniques developed for mesh based methods, we develop a complete framework for parallelizing SPH with distriubted memory parallelism (MPI) allowing flexible and efficient data access.
 
-The time complexity for raw SPH method is $O(NN)$. Where, $N$ is the total number of SPH particles. Efficient neighbour searching and compact-supported kernel function could help to reduce computational cost. Of the many possible choices we adopt a background grid which was proposed by \citet {monaghan1985refined} and is quite popular in parallel SPH. Then the time complexity is reduced to $O(MN+mN)$. Where $m$ is the average of number of particles within the compact support of kernel function, $M$ is average number of particles in sub-domain within which neighbour searching is carried out. This background grid is also used for domain decomposition. We refer to the elements of background grid, namely squares for two dimensions and cubic for three dimensions, as buckets. 
-As for the actual storage of the physical quantities associated to each particle, different strategies have been adopted in existing implementations of SPH.
+The time complexity for an SPH method is $O(N^2)$, where, $N$ is the total number of SPH particles. Efficient neighbor searches and compact-supported kernel functions can help to reduce computational cost. Of the many possible choices we adopt a background grid  which was proposed by \citet {monaghan1985refined} and is quite popular in parallel SPH. Then the time complexity is reduced to $O(MN+mN)$, where $m$ is the average of number of particles within the compact support of the kernel function, $M$ is the average number of particles in sub-domain within which neighbor searches are carried out. This background grid is also used for domain decomposition. We refer to the elements of background grid, namely squares for two dimensions and cubic for three dimensions, as buckets. 
+As for the actual storage of the physical quantities  different strategies have been adopted in existing implementations of SPH.
 
-In DualSPHysics \citep {crespo2015dualsphysics}, the physical quantities of each particle (position, velocity, density...) are stored in arrays. The particles (and the arrays with particle data) are reordered following the order of the cells. This has two advantages: 1) access pattern is more regular and more efficient, 2) it is easy to identify the particles that belong to a cell by using a range since the first particle of each cell is known. But adding, deleting and especially accessing of particles are cumbersome. \citet {ferrari2009new} adopted linked lists using pointers so that particles can be deleted or added during the simulation. Storage problems caused by fixed-size arrays are thereby also eliminated. We define C++ classes which contain all data of particles and buckets. As for the management of data, we adopt hash tables to store pointers to particles and buckets, which gives us not only flexibility of deleting and adding of elements, but also quicker access compared with linked lists. Instead of using the "nature manner" to number particles, we adopt a space filling curve (SFC) based index to give each particle and background bucket an unique identifier -- a strategy known to preserve data locality at minimal cost. The SFC based numbering strategy is further extended to include time step information so that particles added at the same position but different time have different identifiers. 
+In DualSPHysics \citep {crespo2015dualsphysics}, the physical quantities of each particle (position, velocity, density...) are stored in arrays. The particles (and the arrays with particle data) are reordered following the order of the cells. This has two advantages: 1) access pattern is more regular and more efficient, 2) it is easy to identify the particles that belong to a cell by using a range since the first particle of each cell is known. But adding, deleting and especially accessing of particles are cumbersome. \citet {ferrari2009new} adopted linked lists using pointers so that particles can be deleted or added during the simulation. Storage problems caused by fixed-size arrays are thereby also eliminated. We define C++ classes which contain all data of particles and buckets. As for the management of data, we adopt hash tables to store pointers to particles and buckets, which gives us not only flexibility of deleting and adding of elements, but also quicker access compared with linked lists. Instead of using the "natural order" to number particles, we adopt a space filling curve (SFC) based index to give each particle and background bucket an unique identifier -- a strategy known to preserve data locality at minimal cost. The SFC based numbering strategy is further extended to include time step information so that particles added at the same position but different time have different identifiers. 
 
 The parallelization is achieved by splitting computational domain into subdomains. Each subdomain is computed by a single processor. For any subdomain, information from its neighbouring subdomains is required when updating physical quantities. To guarantee consistency, data is synchronized if physical quantities are updated. Even though more complicated graph-based partitioning tools \citep {biswas1999experiments} might get higher quality decomposition, they requires much more effort in programming and computation. So we adopt an easy-programming scheme based on SFC \citep {patra1999efficient} to decompose the computational domain. Subfigure $c$ of Fig. \ref{fig:bc_and_domain_decomp} shows a cross section view of domain decomposition.
 
@@ -709,13 +709,13 @@ More details about the data structure, domain decomposition, load balancing, dom
     \centering
     \begin{minipage}{.425\textwidth}
 		\centering
-		\includegraphics[scale=0.45]{strong}
+		\includegraphics[scale=0.45]{Fig3}
 		\caption{Strong scalability test result}
 		\label{fig:strong_scale}
     \end{minipage}%
     \begin{minipage}{.425 \textwidth}
 		\centering
-		\includegraphics[scale=0.45]{weak_scale}
+		\includegraphics[scale=0.45]{Fig4}
 		\caption{Weak scalability test result}
 		\label{fig:weak_scale}
     \end{minipage}% 
@@ -723,7 +723,7 @@ More details about the data structure, domain decomposition, load balancing, dom
 
 \begin{figure}[!t]
 \centering
-\includegraphics[scale=0.35]{adj_vs_no}
+\includegraphics[scale=0.35]{Fig5}
 \caption{The effect of domain adjusting on simulation time. The figure on the top shows execution time without domain adjusting, the figure on the bottom shows execution time with domain adjusting. Different bins represent execution time up to specific physical time indicated by horizontal axis.}
 \label{fig:adj_vs_no}
 \end{figure}
@@ -759,18 +759,7 @@ In  table \ref{tab:1D-shock-input_parameters},  subscript $L$ refers left side a
 
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.325\textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./GSPH-Sod-verification-e}
-    \end{minipage}%
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./Sod-verification-e}
-    \end{minipage}%
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./d-exp-verification-e}
-    \end{minipage}%   
+	  \includegraphics[width=18cm]{Fig6} 
     \caption{Comparison of specific internal energy of simulation results agaist analytical results for shock tube tests. The plots from left to right are corresponding to test 1, test 2 and test 3 respectively.}
     \label{fig:1D-shock-tests-verification}
 \end{figure}
@@ -811,54 +800,17 @@ One overall feature of JPUE is "self-similarity" which means that the evolution 
 
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.425\textwidth}
-        \centering
-        \includegraphics[width=8cm]{vel_cross}
-    \end{minipage}%
-    \begin{minipage}{.425 \textwidth}
-        \centering
-        \includegraphics[width=8cm]{conc_cross}]
-    \end{minipage}%  
+	  \includegraphics[width=16cm]{Fig7}
     \caption{Dimensionless concentration and velocity distribution across the cross-section.}
     \label{fig:JPUE_cross-section}
 \end{figure}
 
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.425\textwidth}
-        \centering
-        \includegraphics[width=8cm]{velo_along_axis}
-    \end{minipage}%
-    \begin{minipage}{.425 \textwidth}
-        \centering
-        \includegraphics[width=8cm]{conc_along_axis}
-    \end{minipage}%  
+	\includegraphics[width=16cm]{Fig8} 
     \caption{The left plot is normalized jet width (which determined based on velocity) along the centerline. The right plot shows normalized concentration along the centerline.}
     \label{fig:JPUE_along-axis}
 \end{figure}
-%
-%\begin{figure}
-%\includegraphics[width=8cm]{vel_cross}
-%\caption{Dimensionless velocity distribution across the cross-section.}
-%\label{fig:JPUE_cross-section_vel}
-%\end{figure}
-%
-%\begin{figure}
-%\includegraphics[width=8cm]{conc_cross}
-%\caption{Dimensionless concentration distribution across the cross-section.}
-%\label{fig:JPUE_cross-section_conc}
-%\end{figure}
-
-%\begin{figure}
-%\includegraphics[width=8cm]{velo_along_axis}
-%\caption{Dimensionless velocity and concentration distribution along centraline.}
-%\label{fig:JPUE_along-axis_vel}
-%\end{figure}
-%\begin{figure}
-%\includegraphics[width=8cm]{conc_along_axis}
-%\caption{Dimensionless concetration distribution along centraline.}
-%\label{fig:JPUE_along-axis_conc}
-%\end{figure}
 
 A three dimensional axisymmetric JPUE which ejects from a round vent is simulated with eruption parameters listed in Table \ref{tab:input_parameters}. Material properties of water are used as material properties for both phases. The results are compared with experiments \citep {george1977turbulence, papanicolaou1988investigations} for verification purposes. Experimental data of concentration and velocity distribution across the cross-section were fit into a Gaussian profile (See Eq. (\ref{eq:JPUE-experiment-fit-corss})) by \citet{papanicolaou1988investigations} and  \citet{ george1977turbulence} even though the actual profile are slightly different from the Gaussian profile.
 
@@ -885,10 +837,9 @@ $intercept$ for jet width based on velocity is 2.58 while that for the concentra
 Although both velocity and concentration are found to be well matched with experimental results, a small disparity in both velocity and concentration are observed near the boundary of the jet. Which is possibly caused by overestimating of the drag effect by standard SPH \citep {ritchie2001multiphase}. \citet {ritchie2001multiphase} also proposed an alternative way for density update which releived the overestimating of the drag effect. However, how well does his method conserve mass is not clear. There are several other factors that might also attribute to such disparity. Reynolds number is not reported in many experiments assuming a high enough Reynolds number. In addition, some details of the experiments, such as exit velocity profile and viscosity of the experimental liquid, are not reported. These factors prevent us from numerically reproducing these experiments in an exact way as they were conducted. However, the features of JPUE are correctly reproduced with our code.
 
 We also investigated the mixing due to turbulence in JPUE simulation by checking the mixture of the two phases. It is shown in Fig. \ref{fig:Turb_mixing} that the ejected material and ambient fluids are mixed through eddies at the outer shear region. And the inner dense core dispersed gradually due to erosion of the outer shear region. Hence, our confidence in the numerical correctness of our code is greatly reinforced.
-%What need to be noticed is that the mass of particle of phase 1 (blue) is 8 time of that of phase 2 (red). It is a trade off between resolution and computational expense to give particle of two phases different particles mass. Both advanced SPH techniques like adaptive particles size and better data management and access strategies need to be exploited to address this issue.
 
 \begin{figure}
-\includegraphics[width=8cm]{JPUE_entrainment.png}
+\includegraphics[width=8cm]{Fig9.png}
 \caption{The left figure shows particle distribution. Particles of phase 1 (blue) are gradually entrained and mixed with erupted particles (red) as jet flows down stream. The right figure shows the mass fraction of erupted material at the moment corresponding to the left figure.}
 %What need to be noticed is that the mass of particle of phase 1 (blue) is 8 time of that of phase 2 (red). It is a trade off between resolution and computational expense to give particle of two phases different particles mass.
 \label{fig:Turb_mixing}
@@ -927,23 +878,7 @@ Figure \ref{fig:pinatubo-simulation-results-vis} shows the mass fraction of simu
 
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.45\textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./mssfrc-Diverging}
-    \end{minipage}%
-    \begin{minipage}{.45 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./mssfrc-Diverging-cut}
-    \end{minipage}%
-    \\
-    \begin{minipage}{.45 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./gmd-mssfrc-xz}
-    \end{minipage}% 
-    \begin{minipage}{.45 \textwidth}
-        \centering
-        \includegraphics[width=0.99 \textwidth]{./gmd-mssfrc-xz-zoomed}
-    \end{minipage}%  
+	  \includegraphics[width=16cm]{Fig10}
     \caption{Mass fraction for $t=500s$ after eruption. Figures on the first row are visualization of SPH simulation results. The figure on the up right corner is visualization of a slice of the computational, whose thickness is around $10000m$. The lowest portion of the plume represents erupted material in eruption vent (the underground portition). Figures at the second row show contour of mass fraction and velocity quiver on x-z plane. These figures are plotted utilizing post-processed data (see Appendix \ref{app:project-SPH-grid}). The contour level in the plot are $0.00001, 0.0001, 0.001, 0.1, 0.3, 0.75, 0.95$. The figure on the lower right corner is a zoomed view of velocity quivier showing plume expansion and entrainment of air.}
     \label{fig:pinatubo-simulation-results-vis}
 \end{figure}
@@ -957,13 +892,13 @@ The profiles of local variables match well with simulation results of existing 3
 
 \begin{figure}
 \center
-\includegraphics[width=7cm]{Temp}
+\includegraphics[width=7cm]{Fig11}
 \caption{Temperature as a function of height}
 \label{fig:strong_local_temp}
 \end{figure}
 
 \begin{figure}
-\includegraphics[width=15cm]{msfrac}
+\includegraphics[width=15cm]{Fig12}
 \caption{The mass fraction of entrained air, gas, and solid as a function of height.}
 \label{fig:strong_plume_mass_fraction}
 \end{figure}
@@ -989,34 +924,17 @@ PDAC, which treats particles of two different sizes as two separate phases, pred
 With more cool air entrained into the plume and mixing with the hot erupted material, the temperature of the plume decreases as the height increases as shown in Fig. \ref{fig:strong_local_temp}. In the meanwhile, bulk density decrease due to entrainment and expansion (Fig. \ref{fig:strong_local_density}).
 \begin{figure}
 \center
-\includegraphics[width=7cm]{density_strong}
+\includegraphics[width=7cm]{Fig13}
 \caption{Density of the strong plume without wind after reaching its top height}
 \label{fig:strong_local_density}
 \end{figure}
 \begin{figure}
 \center
-\includegraphics[width=7cm]{radius_strong}
+\includegraphics[width=7cm]{Fig14}
 \caption{Radius of the strong plume without wind after reaching its top height.}
 \label{fig:strong_local_radius}
 \end{figure}
 Our model adopts the same assumptions and governing equations as SK-3D. However, there is still an obvious disparity between the profiles of local variables of our model and SK-3D. One of the big differences between these two models is that we adopt a LANS type of turbulence model while SK-3D adopts a LES (large eddy simulation) turbulence model. This implies that choice of  turbulence model might play a critical role in plume simulation.
-
-%\subsubsection{Evolution of plume} 
-%
-%\begin{figure}
-%\center
-%\includegraphics[width=15cm]{strong_elevation}
-%\caption{This figure shows the dynamic evolution process of the Pinatubo with time. At the very beginning, it is driven by initial momentum and rises up quickly, mixing and entraining surround air. Around 100s, the jet stage finishes and it becomes a plume as there were enough air entrained. The plume keeps rising up until reaches the top height then starts spreading.}
-%\label{fig:strong_evolution}
-%\end{figure}
-%
-%\begin{figure}
-%\includegraphics[width=10cm]{t50}
-%\caption{Contour of mass fraction and velocity quiver at 50 seconds in plane x=0, the column keeps rising up and at the same time entraining air into the plume. The zoomed view (right figure) of the quiver plot clearly shows mechanism of air entrainment. The contour levels of mass fraction are 0.7, 0.5, 0.3, 0.1, $1\times 10 ^{-1}$, $1\times 10 ^{-2}$, $1\times 10 ^{-3}$, $1\times 10^{-4}$ and $1\times 10^{-5}$.}
-%\label{fig:strong_plume_t50}
-%\end{figure}
-%
-%Figure \ref{fig:strong_evolution} shows the overall evolution process of plume. Plume keeps rising up and entraining air into the plume until it reaches its top height(around t=300 seconds). Afterwards the mixtures of erupted material and air then fall back to neutral height and starts spreading radially. Detailed velocity quiver plot in Fig. \ref{fig:strong_plume_t50} shows entraining of air into the plume at the edge of column. The evolution of the plume further verifies our model.
 
 \conclusions  \label{sec:conclusion}%% 
 A new plume model was developed based on the SPH method. Extensions necessary for Lagrangian methodology and compressible flow were made in the formulation of the equations of motion and turbulence models. Advanced numerical techniques in SPH were exploited and tailored for this model. High performance computing was used to mitigate the tradeoff between accuracy (depends on comprehensiveness of the model, resolution, order of accuracy of numerical methods, scheme for time upgrading) and simulation time (depends on comprehensiveness of model, resolution, order of accuracy of numerical methods, scheme for time upgrading ... and computational techniques). The correctness of the code and model was verified and validated by a series of test simulations. Typical 1D shock tube problems were simulated and compared against analytical results showing good agreement. Dimensionless velocity and concentration distribution across the cross-section and along the jet axis match well with experimental results of JPUE. Top height and integrated local variables simulated by our model are consistent with simulation results of existing 3D plume models. Comparison between our results with those of SK-3D implies that turbulence model plays a significant role in plume modeling.
@@ -1035,18 +953,7 @@ The Plume-SPH code, together with a user manual providing instructions for insta
 \appendixfigures
 \begin{figure}[!htb]
     \centering
-    \begin{minipage}{.325\textwidth}
-        \centering
-        \includegraphics[width=0.90 \textwidth]{./Project1}
-    \end{minipage}%
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.90 \textwidth]{./Project2}
-    \end{minipage}%
-    \begin{minipage}{.325 \textwidth}
-        \centering
-        \includegraphics[width=0.90 \textwidth]{./Project3}
-    \end{minipage}%   
+	\includegraphics[width=18cm]{FigA1} 
     \caption{Procedure of projection of simulation results carried by particles onto regular grids. as shown in these figures from left to right: 1) raw data of SPH simulation results (irregularly distributed in space), 2) Add regular mesh, 3) searching for neighbours of each node (the blue SPH particles within the green circle around the red dot). The last step is not shown in these pictures, which is treating each node on the regular mesh as a SPH particle and projecting data on particles onto nodes utilizing "SPH interpolation" ( see Eq. (\ref{eq:SPH-fundamental-principle})).}
     \label{appfig:1D-shock-tests-verification}
 \end{figure}
