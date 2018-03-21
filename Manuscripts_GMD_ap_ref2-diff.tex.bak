@@ -1146,7 +1146,7 @@ We also investigated the mixing due to turbulence in JPUE simulation by checking
 %What need to be noticed is that the mass of particle of phase 1 (blue) is 8 time of that of phase 2 (red). It is a trade off between resolution and computational expense to give particle of two phases different particles mass. Both advanced SPH techniques like adaptive particles size and better data management and access strategies need to be exploited to address this issue.
 
 \begin{figure}
-\includegraphics[width=8cm]{Fig9.png}
+\includegraphics[width=8cm]{Fig9}
 \caption{The left figure shows particle distribution. Particles of phase 1 (blue) are gradually entrained and mixed with erupted particles (red) as jet flows down stream. The right figure shows the mass fraction of erupted material at the moment corresponding to the left figure.}
 %What need to be noticed is that the mass of particle of phase 1 (blue) is 8 time of that of phase 2 (red). It is a trade off between resolution and computational expense to give particle of two phases different particles mass.
 \label{fig:Turb_mixing}
