@@ -1,0 +1,48 @@
+This is BibTeX, Version 0.99d (TeX Live 2014)
+Capacity: max_strings=35307, hash_size=35307, hash_prime=30011
+The top-level auxiliary file: FinalSubmit.aux
+The style file: copernicus.bst
+Database file #1: Ref.bib
+Warning--empty journal in issa2005numerical
+You've used 93 entries,
+            2811 wiz_defined-function locations,
+            1509 strings with 23993 characters,
+and the built_in function-call counts, 83066 in all, are:
+= -- 9697
+> -- 2567
+< -- 53
++ -- 1292
+- -- 780
+* -- 4766
+:= -- 8121
+add.period$ -- 93
+call.type$ -- 93
+change.case$ -- 444
+chr.to.int$ -- 91
+cite$ -- 280
+duplicate$ -- 8679
+empty$ -- 4446
+format.name$ -- 1063
+if$ -- 16466
+int.to.chr$ -- 3
+int.to.str$ -- 1
+missing$ -- 876
+newline$ -- 288
+num.names$ -- 372
+pop$ -- 3543
+preamble$ -- 1
+purify$ -- 444
+quote$ -- 0
+skip$ -- 5244
+stack$ -- 0
+substring$ -- 3682
+swap$ -- 7337
+text.length$ -- 3
+text.prefix$ -- 0
+top$ -- 0
+type$ -- 828
+warning$ -- 1
+while$ -- 492
+width$ -- 0
+write$ -- 1020
+(There was 1 warning)
